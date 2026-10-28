@@ -36,6 +36,16 @@ window.CYBER_CONFIG = {
       bgCard: '#0f1424'
     },
     {
+      id: 'ahom-warrior',
+      name: 'Ahom Dynasty (Cyber Warrior // অসম)',
+      description: 'Imperial Scarlet, Muga Silk Gold & Brahmaputra Jade',
+      primary: '#ff1744',
+      secondary: '#ffb700',
+      accent: '#00f0aa',
+      bgDark: '#080507',
+      bgCard: '#180d12'
+    },
+    {
       id: 'matrix-netrunner',
       name: 'Matrix Netrunner (Hacker Green)',
       description: 'Phosphor Green & Terminal Emerald',
@@ -77,6 +87,14 @@ window.CYBER_CONFIG = {
     }
   ],
 
+  // Supported UI and Blog Document Translation Languages
+  languages: [
+    { code: 'en', name: 'English', native: 'English', icon: '🌐' },
+    { code: 'as', name: 'Assamese', native: 'অসমীয়া', icon: '⚔️' },
+    { code: 'zh', name: 'Chinese', native: '中文', icon: '🐉' },
+    { code: 'ja', name: 'Japanese', native: '日本語', icon: '⚡' }
+  ],
+
   // Cyberpunk Audio Deck Playlist
   playlist: [
     {
@@ -86,6 +104,50 @@ window.CYBER_CONFIG = {
       type: 'synth', // Generated dynamically via Web Audio API, works 100% offline!
       duration: 'Infinite ∞',
       tag: 'REALTIME SYNTH'
+    },
+    {
+      id: 'procedural-ahom-synth',
+      title: 'Lachit Cyber-Hengdang // Ahom War Synth',
+      artist: 'Assam Warrior Neural Engine',
+      type: 'ahom-synth', // Procedural Ahom Warrior Web Audio Drone & Arp
+      duration: 'Infinite ∞',
+      tag: 'AHOM WAR DRUMS'
+    },
+    {
+      id: 'the-synapse',
+      title: 'The Synapse (Cyberpunk Hong Kong)',
+      artist: 'Alexander Brandon (Deus Ex)',
+      type: 'stream',
+      url: 'https://archive.org/download/deus_ex_soundtrack/11-The%20Synapse%20%28Hong%20Kong%20Streets%29.mp3',
+      duration: '2:18',
+      tag: 'TECH PROTOCOL'
+    },
+    {
+      id: 'night-city',
+      title: 'Night City (Cyberpunk 2077)',
+      artist: 'R E L & Artemis Delta',
+      type: 'stream',
+      url: 'https://archive.org/download/cyberpunk-albums/Cyberpunk%202077%20Radio%20Vol.%203%20Original%20Soundtrack/Cyberpunk%202077%20Radio%20Vol.%203%20Original%20Soundtrack%20-%2009%20Night%20City.mp3',
+      duration: '3:13',
+      tag: 'NIGHT CITY'
+    },
+    {
+      id: 'stay-at-your-house',
+      title: 'I Really Want to Stay at Your House',
+      artist: 'Rosa Walton (Edgerunners)',
+      type: 'stream',
+      url: 'https://archive.org/download/cyberpunk-albums/Cyberpunk%202077%20Radio%20Vol.%202%20Original%20Soundtrack/Cyberpunk%202077%20Radio%20Vol.%202%20Original%20Soundtrack%20-%2005%20I%20Really%20Want%20to%20Stay%20at%20Your%20House.mp3',
+      duration: '4:06',
+      tag: 'EDGERUNNERS'
+    },
+    {
+      id: 'battleground-arasaka',
+      title: 'Battleground Arasaka (Combat Beat)',
+      artist: 'Marcin Przybyłowicz',
+      type: 'stream',
+      url: 'https://archive.org/download/cyberpunk-albums/Cyberpunk%202077%20-%20Original%20Score%20EP/Cyberpunk%202077%20-%20Original%20Score%20EP%20-%2003%20Battleground%20Arasaka.mp3',
+      duration: '4:48',
+      tag: 'CYBER ACTION'
     },
     {
       id: 'cyberpunk-future',
@@ -122,6 +184,24 @@ window.CYBER_CONFIG = {
       url: 'https://archive.org/download/ghost-rerun-cyberwitch-ep/05%20-%202049.mp3',
       duration: '3:47',
       tag: 'AMBIENT CYBER'
+    },
+    {
+      id: 'dark-lonely-water',
+      title: 'Dark Lonely Water (Cyber Witch)',
+      artist: 'GH0ST // RERUN',
+      type: 'stream',
+      url: 'https://archive.org/download/ghost-rerun-cyberwitch-ep/03%20-%20Dark%20Lonely%20Water.mp3',
+      duration: '3:37',
+      tag: 'CYBER WITCH'
+    },
+    {
+      id: 'deus-ex-title',
+      title: 'Deus Ex Cyberpunk Main Title',
+      artist: 'Alexander Brandon',
+      type: 'stream',
+      url: 'https://archive.org/download/deus_ex_soundtrack/01-Deus%20Ex%20Main%20Title.mp3',
+      duration: '2:24',
+      tag: 'RETRO CYBER'
     },
     {
       id: 'nightwave-plaza',

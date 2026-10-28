@@ -15,11 +15,15 @@ class CyberDocsApp {
     // 1. Initialize Subsystems
     window.cyberTheme.init();
     window.cyberSFX.init();
+    if (window.cyberI18n) window.cyberI18n.init();
     window.navTree.init();
     window.connectedGraph.init();
     window.cyberMusic.updateUI();
 
-    // 2. Play subtle boot sound on user interaction
+    // 2. Autoplay background music automatically at lower initial volume (0.20)
+    window.cyberMusic.initAutoplay();
+
+    // 3. Play subtle boot sound on user interaction
     document.addEventListener('click', () => {
       window.cyberSFX.init();
     }, { once: true });
@@ -150,6 +154,16 @@ class CyberDocsApp {
       // Highlight Code Blocks with Prism
       if (typeof Prism !== 'undefined') {
         Prism.highlightAllUnder(contentEl);
+      }
+
+      // Save original document state for language translation engine
+      if (window.cyberI18n) {
+        window.cyberI18n.originalDocHtml = contentEl.innerHTML;
+        window.cyberI18n.originalDocPath = path;
+        window.cyberI18n.isShowingOriginal = false;
+        if (window.cyberI18n.currentLang !== 'en') {
+          window.cyberI18n.translateCurrentDocument(window.cyberI18n.currentLang);
+        }
       }
 
       // Render On-this-page Table of Contents

@@ -3,7 +3,7 @@
  * Futuristic Anime HUD, Neon Glows, Chamfered Angles, Typography & Animations
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
 
 :root {
   /* Default: Neo Tokyo (Cyber Neon) */
@@ -109,6 +109,82 @@
   --text-bright: #ffffff;
   --border-hud: rgba(255, 94, 0, 0.3);
   --border-bright: #ff5e00;
+}
+
+/* THEME 6: Ahom Dynasty (Assam Cyber Warrior // আহোম সাম্রাজ্য) */
+[data-theme="ahom-warrior"] {
+  --primary: #ff1744;             /* Imperial Ahom Scarlet / Crimson */
+  --primary-glow: rgba(255, 23, 68, 0.6);
+  --primary-subtle: rgba(255, 23, 68, 0.15);
+  --secondary: #ffb700;           /* Muga Silk Royal Gold */
+  --secondary-glow: rgba(255, 183, 0, 0.6);
+  --accent: #00f0aa;              /* Brahmaputra Neon Jade */
+  --accent-glow: rgba(0, 240, 170, 0.5);
+  --bg-dark: #090406;             /* Obsidian Basalt Fortress */
+  --bg-panel: rgba(24, 10, 15, 0.92);
+  --bg-card: rgba(32, 14, 21, 0.82);
+  --bg-input: rgba(15, 6, 10, 0.95);
+  --text-main: #fde8e8;
+  --text-muted: #c79ca2;
+  --text-bright: #ffffff;
+  --border-hud: rgba(255, 183, 0, 0.38);
+  --border-bright: #ffb700;
+}
+
+/* Ahom Cultural Custom Accents when Ahom Theme is active */
+[data-theme="ahom-warrior"] .brand-title {
+  color: #ffb700;
+  text-shadow: 0 0 12px rgba(255, 183, 0, 0.7);
+}
+
+[data-theme="ahom-warrior"] .brand-title .brand-accent {
+  color: #ff1744;
+  text-shadow: 0 0 12px rgba(255, 23, 68, 0.7);
+}
+
+[data-theme="ahom-warrior"] #cyber-header {
+  border-bottom: 2px solid rgba(255, 183, 0, 0.4);
+  box-shadow: 0 4px 25px rgba(255, 23, 68, 0.15);
+}
+
+[data-theme="ahom-warrior"] .doc-header-card {
+  border-left: 4px solid #ff1744;
+  background: linear-gradient(135deg, rgba(32, 14, 21, 0.85) 0%, rgba(20, 8, 13, 0.9) 100%);
+  box-shadow: 0 8px 32px rgba(255, 23, 68, 0.12), inset 0 0 20px rgba(255, 183, 0, 0.05);
+}
+
+[data-theme="ahom-warrior"] .cyber-btn.primary,
+[data-theme="ahom-warrior"] .deck-btn.primary-btn {
+  background: linear-gradient(135deg, #ff1744 0%, #b30026 100%);
+  border-color: #ffb700;
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(255, 23, 68, 0.5);
+}
+
+[data-theme="ahom-warrior"] .cyber-btn.primary:hover {
+  background: linear-gradient(135deg, #ff3b61 0%, #ff1744 100%);
+  box-shadow: 0 0 20px rgba(255, 183, 0, 0.65);
+}
+
+/* Ahom Warrior Badge Indicator */
+.ahom-cultural-crest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  background: rgba(255, 183, 0, 0.12);
+  border: 1px solid rgba(255, 183, 0, 0.4);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #ffb700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.ahom-cultural-crest .ahom-icon {
+  width: 14px;
+  height: 14px;
+  fill: #ffb700;
 }
 
 /* BASE RESET */

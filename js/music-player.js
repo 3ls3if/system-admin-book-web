@@ -11,13 +11,22 @@ class CyberMusicPlayer {
     this.isPlaying = false;
     this.audioElement = new Audio();
     this.audioElement.crossOrigin = 'anonymous';
-    this.volume = parseFloat(localStorage.getItem('cyber_music_volume') || '0.5');
+
+    // Start with a lower ambient volume initially (default 0.20 / 20%)
+    let savedVol = localStorage.getItem('cyber_music_volume');
+    if (!savedVol || parseFloat(savedVol) > 0.35) {
+      savedVol = '0.20';
+      localStorage.setItem('cyber_music_volume', savedVol);
+    }
+    this.volume = parseFloat(savedVol);
 
     // Procedural Synth State
     this.synthCtx = null;
     this.synthInterval = null;
     this.synthGain = null;
     this.synthArpIndex = 0;
+    this.ahomDroneOsc1 = null;
+    this.ahomDroneOsc2 = null;
 
     // Visualizer State
     this.visualizerCanvas = null;
@@ -55,20 +64,73 @@ class CyberMusicPlayer {
 
     if (track.type === 'synth') {
       this.audioElement.pause();
+      this.stopProceduralSynth();
       this.startProceduralSynth();
+    } else if (track.type === 'ahom-synth') {
+      this.audioElement.pause();
+      this.stopProceduralSynth();
+      this.startAhomSynth();
     } else {
       this.stopProceduralSynth();
       if (this.audioElement.src !== track.url) {
         this.audioElement.src = track.url;
       }
-      this.audioElement.play().catch(err => {
-        console.warn('Audio play autoplay policy or error:', err);
-      });
+      const playPromise = this.audioElement.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.warn('Audio play autoplay policy or error:', err);
+        });
+      }
       this.connectVisualizerNode(this.audioElement);
     }
 
     this.updateUI();
     this.startVisualizer();
+  }
+
+  initAutoplay() {
+    // Attempt automatic playback at lower initial volume (0.20)
+    setTimeout(() => {
+      try {
+        const track = this.getCurrentTrack();
+        if (track.type === 'synth' || track.type === 'ahom-synth') {
+          // For web audio, context needs resume on interaction if blocked
+          this.play();
+        } else {
+          const promise = this.audioElement.play();
+          if (promise !== undefined) {
+            promise.then(() => {
+              this.isPlaying = true;
+              this.updateUI();
+              this.startVisualizer();
+            }).catch(() => {
+              this.armAutoplayUnlock();
+            });
+          }
+        }
+      } catch (e) {
+        this.armAutoplayUnlock();
+      }
+    }, 600);
+  }
+
+  armAutoplayUnlock() {
+    const unlock = () => {
+      ['click', 'keydown', 'scroll', 'touchstart', 'pointerdown'].forEach(evt => {
+        window.removeEventListener(evt, unlock, { capture: true });
+      });
+      if (!this.isPlaying) {
+        try {
+          this.play();
+        } catch (err) {
+          console.warn('Playback on user gesture failed:', err);
+        }
+      }
+    };
+
+    ['click', 'keydown', 'scroll', 'touchstart', 'pointerdown'].forEach(evt => {
+      window.addEventListener(evt, unlock, { capture: true, once: true });
+    });
   }
 
   pause() {
@@ -223,10 +285,143 @@ class CyberMusicPlayer {
     this.synthInterval = setInterval(playNote, 120);
   }
 
+  /* ================= AHOM WARRIOR CYBER SYNTH ================= */
+  startAhomSynth() {
+    this.initSynthContext();
+    if (this.synthInterval) clearInterval(this.synthInterval);
+    if (this.ahomDroneOsc1) {
+      try { this.ahomDroneOsc1.stop(); } catch(e){}
+      this.ahomDroneOsc1 = null;
+    }
+    if (this.ahomDroneOsc2) {
+      try { this.ahomDroneOsc2.stop(); } catch(e){}
+      this.ahomDroneOsc2 = null;
+    }
+
+    const t0 = this.synthCtx.currentTime;
+
+    // Continuous Deep Brahmaputra War Drone
+    const droneGain = this.synthCtx.createGain();
+    droneGain.gain.setValueAtTime(0.12, t0);
+    droneGain.connect(this.synthGain);
+
+    const droneFilter = this.synthCtx.createBiquadFilter();
+    droneFilter.type = 'lowpass';
+    droneFilter.frequency.setValueAtTime(140, t0);
+    droneFilter.connect(droneGain);
+
+    this.ahomDroneOsc1 = this.synthCtx.createOscillator();
+    this.ahomDroneOsc1.type = 'sawtooth';
+    this.ahomDroneOsc1.frequency.setValueAtTime(73.42, t0); // D2
+    this.ahomDroneOsc1.connect(droneFilter);
+    this.ahomDroneOsc1.start(t0);
+
+    this.ahomDroneOsc2 = this.synthCtx.createOscillator();
+    this.ahomDroneOsc2.type = 'triangle';
+    this.ahomDroneOsc2.frequency.setValueAtTime(110.00, t0); // A2 (Fifth)
+    this.ahomDroneOsc2.connect(droneFilter);
+    this.ahomDroneOsc2.start(t0);
+
+    // Martial Ahom Scale: D3, F3, G3, A3, C4, D4, E4, F4
+    const ahomScale = [146.83, 174.61, 196.00, 220.00, 261.63, 293.66, 329.63, 349.23];
+    const ahomMotif = [0, 2, 3, 5, 3, 2, 0, 4, 3, 1, 0, 3, 5, 7, 5, 3];
+    let step = 0;
+
+    const playAhomBeat = () => {
+      if (!this.isPlaying || !this.synthCtx) return;
+      const t = this.synthCtx.currentTime;
+
+      // 1. Ahom War Drum (Heavy low kick on beats 0, 4, 8, 12, with syncopated 10)
+      if (step % 4 === 0 || step % 16 === 10) {
+        const drumOsc = this.synthCtx.createOscillator();
+        const drumGain = this.synthCtx.createGain();
+
+        drumOsc.type = 'sine';
+        drumOsc.frequency.setValueAtTime(step % 16 === 0 ? 140 : 110, t);
+        drumOsc.frequency.exponentialRampToValueAtTime(32, t + 0.28);
+
+        drumGain.gain.setValueAtTime(0.4, t);
+        drumGain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+
+        drumOsc.connect(drumGain);
+        drumGain.connect(this.synthGain);
+
+        drumOsc.start(t);
+        drumOsc.stop(t + 0.3);
+      }
+
+      // 2. Metallic Hengdang Blade clash / cyber hi-hat (on odd 16th beats)
+      if (step % 2 === 1) {
+        const bufferSize = Math.floor(this.synthCtx.sampleRate * 0.04);
+        const noiseBuffer = this.synthCtx.createBuffer(1, bufferSize, this.synthCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = this.synthCtx.createBufferSource();
+        noise.buffer = noiseBuffer;
+
+        const noiseFilter = this.synthCtx.createBiquadFilter();
+        noiseFilter.type = 'highpass';
+        noiseFilter.frequency.setValueAtTime(6000, t);
+
+        const noiseGain = this.synthCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.08, t);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(this.synthGain);
+
+        noise.start(t);
+        noise.stop(t + 0.05);
+      }
+
+      // 3. Cyber Hengdang Lead Synth (Heroic martial melody)
+      const noteIdx = ahomMotif[step % ahomMotif.length];
+      const freq = ahomScale[noteIdx % ahomScale.length];
+
+      const leadOsc = this.synthCtx.createOscillator();
+      const leadFilter = this.synthCtx.createBiquadFilter();
+      const leadGain = this.synthCtx.createGain();
+
+      leadOsc.type = 'sawtooth';
+      leadOsc.frequency.setValueAtTime(freq, t);
+
+      leadFilter.type = 'lowpass';
+      leadFilter.frequency.setValueAtTime(1400 + Math.sin(step * 0.4) * 600, t);
+      leadFilter.Q.setValueAtTime(5, t);
+
+      leadGain.gain.setValueAtTime(0.16, t);
+      leadGain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+
+      leadOsc.connect(leadFilter);
+      leadFilter.connect(leadGain);
+      leadGain.connect(this.synthGain);
+
+      leadOsc.start(t);
+      leadOsc.stop(t + 0.24);
+
+      step++;
+    };
+
+    // 124 BPM = ~121ms per 16th note
+    this.synthInterval = setInterval(playAhomBeat, 121);
+  }
+
   stopProceduralSynth() {
     if (this.synthInterval) {
       clearInterval(this.synthInterval);
       this.synthInterval = null;
+    }
+    if (this.ahomDroneOsc1) {
+      try { this.ahomDroneOsc1.stop(); } catch(e){}
+      this.ahomDroneOsc1 = null;
+    }
+    if (this.ahomDroneOsc2) {
+      try { this.ahomDroneOsc2.stop(); } catch(e){}
+      this.ahomDroneOsc2 = null;
     }
   }
 

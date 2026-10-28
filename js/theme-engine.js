@@ -33,6 +33,10 @@ class CyberThemeEngine {
     const select = document.getElementById('theme-selector');
     if (select) select.value = theme.id;
 
+    if (window.cyberI18n) {
+      window.cyberI18n.updateStaticUI();
+    }
+
     if (playSfx && window.cyberSFX) {
       window.cyberSFX.playConfirm();
     }
@@ -103,11 +107,15 @@ class CyberThemeEngine {
       const isArasaka = this.currentTheme === 'arasaka-corpo';
       const isGhost = this.currentTheme === 'ghost-shell';
       const isSynthwave = this.currentTheme === 'synthwave-sunset';
+      const isAhom = this.currentTheme === 'ahom-warrior';
 
       let nodeColor = 'rgba(0, 243, 255, '; // default cyan
       let lineColor = 'rgba(0, 243, 255, 0.04)';
 
-      if (isMatrix) {
+      if (isAhom) {
+        nodeColor = 'rgba(255, 183, 0, '; // Royal Muga Gold
+        lineColor = 'rgba(255, 23, 68, 0.06)'; // Imperial Crimson
+      } else if (isMatrix) {
         nodeColor = 'rgba(0, 255, 102, ';
         lineColor = 'rgba(0, 255, 102, 0.05)';
       } else if (isArasaka) {
@@ -149,9 +157,13 @@ class CyberThemeEngine {
         if (p.y < 0) p.y = h;
         if (p.y > h) p.y = 0;
 
-        this.ctx.fillStyle = `${nodeColor}${p.alpha})`;
+        if (isAhom && i % 2 === 0) {
+          this.ctx.fillStyle = `rgba(255, 23, 68, ${p.alpha * 0.9})`;
+        } else {
+          this.ctx.fillStyle = `${nodeColor}${p.alpha})`;
+        }
         this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        this.ctx.arc(p.x, p.y, isAhom ? p.size * 1.2 : p.size, 0, Math.PI * 2);
         this.ctx.fill();
 
         // Connect nearby nodes

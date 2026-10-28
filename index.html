@@ -7,10 +7,10 @@
   <meta name="description" content="Futuristic anime cyberpunk documentation & knowledge graph for System Administration notes. Realtime sync with GitHub.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
-  <!-- Core Google Fonts -->
+  <!-- Core Google Fonts with Assamese, Japanese & Chinese Support -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- External CDN Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -58,6 +58,14 @@
           <div class="brand-sub">// システム管理者 // NEURAL ARCHIVE</div>
         </a>
 
+        <!-- Ahom Warrior Cultural Insignia Badge -->
+        <div class="ahom-cultural-crest" title="Built with pride in Assam (অসম) // Ahom Warrior Heritage">
+          <svg class="ahom-icon" viewBox="0 0 24 24">
+            <path d="M12 2L14.5 7.5L20.5 8.2L16 12.2L17.2 18.2L12 15.2L6.8 18.2L8 12.2L3.5 8.2L9.5 7.5L12 2Z"/>
+          </svg>
+          <span>AHOM // ASSAM</span>
+        </div>
+
         <!-- System Connection Status -->
         <div id="hud-status-badge">
           <span id="hud-status-text">INITIALIZING...</span>
@@ -65,10 +73,22 @@
       </div>
 
       <div class="header-right">
+        <!-- Language Selector -->
+        <div class="cyber-select-wrapper" title="Translate Documentation & UI (English, Assamese, Chinese, Japanese)">
+          <select id="language-selector" class="cyber-select">
+            <option value="en">🌐 EN - ENGLISH</option>
+            <option value="as">⚔️ AS - অসমীয়া (ASSAMESE)</option>
+            <option value="zh">🐉 ZH - 中文 (CHINESE)</option>
+            <option value="ja">⚡ JA - 日本語 (JAPANESE)</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+
         <!-- Theme Selector -->
         <div class="cyber-select-wrapper" title="Select Cyberpunk Theme">
           <select id="theme-selector" class="cyber-select">
             <option value="neo-tokyo">NEO TOKYO (CYAN/PINK)</option>
+            <option value="ahom-warrior">⚔️ AHOM WARRIOR // ASSAM (CRIMSON/GOLD)</option>
             <option value="matrix-netrunner">MATRIX (HACKER GREEN)</option>
             <option value="arasaka-corpo">ARASAKA (BLOOD RED)</option>
             <option value="ghost-shell">GHOST SHELL (COBALT)</option>
@@ -165,6 +185,17 @@
         <nav id="sidebar-tree">
           <!-- Dynamically populated from SUMMARY.md -->
         </nav>
+
+        <!-- Ahom Warrior Cultural Heritage Footer Flair -->
+        <div class="ahom-cultural-flair" title="Crafted with pride by an Assamese Netrunner">
+          <svg class="dragon-crest-icon" viewBox="0 0 24 24">
+            <path d="M12 2L14.5 7.5L20.5 8.2L16 12.2L17.2 18.2L12 15.2L6.8 18.2L8 12.2L3.5 8.2L9.5 7.5L12 2Z"/>
+          </svg>
+          <div class="ahom-flair-text">
+            <span class="ahom-flair-title">// AHOM WARRIOR HERITAGE</span>
+            <span class="ahom-flair-sub">BUILT IN ASSAM (অসম) // SARAIGHAT 2077</span>
+          </div>
+        </div>
       </aside>
 
       <!-- ================= MAIN READING VIEW ================= -->
@@ -398,6 +429,7 @@
   <script src="js/sfx.js"></script>
   <script src="js/music-player.js"></script>
   <script src="js/theme-engine.js"></script>
+  <script src="js/translation-engine.js"></script>
   <script src="js/github-service.js"></script>
   <script src="js/markdown-renderer.js"></script>
   <script src="js/nav-tree.js"></script>
