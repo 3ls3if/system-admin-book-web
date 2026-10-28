@@ -17,7 +17,6 @@ class CyberTranslationEngine {
     this.i18n = {
       en: {
         brandSub: '// システム管理者 // NEURAL ARCHIVE',
-        brandAhomSub: '// AHOM DYNASTY // SARAIGHAT PROTOCOL 1671–2077 // ASSAM',
         searchPlaceholder: '[CTRL+K] Search 600+ docs...',
         tabDocs: '// ALL DOCS',
         tabBookmarks: '// BOOKMARKS',
@@ -43,8 +42,6 @@ class CyberTranslationEngine {
         translatedIntel: 'NEURAL INTEL LOCALIZED TO',
         showOriginal: 'SHOW ORIGINAL (EN)',
         showTranslated: 'SHOW TRANSLATED',
-        ahomBadge: '⚔️ AHOM WARRIOR // ASSAM',
-        creatorFlair: 'Crafted with pride in Assam (অসম) // Ahom Heritage',
         settingsTitle: '// GITHUB NEURAL REPOSITORY SETTINGS',
         applySync: 'APPLY & SYNC',
         statusOnline: 'ONLINE',
@@ -52,7 +49,6 @@ class CyberTranslationEngine {
       },
       as: {
         brandSub: '// ছিষ্টেম প্ৰশাসক // নিউৰেল আৰ্কাইভ (অসম)',
-        brandAhomSub: '// আহোম সাম্রাজ্য // শৰাইঘাট প্ৰট\'কল ১৬৭১–২০৭৭ // অসম',
         searchPlaceholder: '[CTRL+K] ৬০০+ নথি সন্ধান কৰক...',
         tabDocs: '// সকলো নথি',
         tabBookmarks: '// বুকমাৰ্কসমূহ',
@@ -78,8 +74,6 @@ class CyberTranslationEngine {
         translatedIntel: 'অনুবাদ সম্পন্ন:',
         showOriginal: 'মূল ইংৰাজী দেখুৱাওক (EN)',
         showTranslated: 'অনুবাদ দেখুৱাওক',
-        ahomBadge: '⚔️ আহোম যোদ্ধা // অসম',
-        creatorFlair: 'অসমত গৌৰৱেৰে নিৰ্মিত (অসম) // আহোম ঐতিহ্য',
         settingsTitle: '// গিটহাব নিউৰেল সংহিতা ছেটিংছ',
         applySync: 'প্ৰয়োগ আৰু চিংক',
         statusOnline: 'অনলাইন',
@@ -87,7 +81,6 @@ class CyberTranslationEngine {
       },
       zh: {
         brandSub: '// 系统管理员 // 神经系统档案',
-        brandAhomSub: '// 阿洪王朝 // 萨莱加特防线 1671–2077 // 阿萨姆',
         searchPlaceholder: '[CTRL+K] 搜索 600+ 篇系统文档...',
         tabDocs: '// 全部文档',
         tabBookmarks: '// 我的书签',
@@ -113,8 +106,6 @@ class CyberTranslationEngine {
         translatedIntel: '情报已本地化为',
         showOriginal: '显示英文原文 (EN)',
         showTranslated: '显示翻译内容',
-        ahomBadge: '⚔️ 阿洪勇士 // 阿萨姆',
-        creatorFlair: '阿萨姆自豪呈现 (Assam) // 阿洪勇士传承',
         settingsTitle: '// GITHUB 神经知识库配置',
         applySync: '应用并同步',
         statusOnline: '在线',
@@ -122,7 +113,6 @@ class CyberTranslationEngine {
       },
       ja: {
         brandSub: '// システム管理者 // ニューラルアーカイブ',
-        brandAhomSub: '// アホム王朝 // サライガート防衛プロトコル 1671–2077 // アッサム',
         searchPlaceholder: '[CTRL+K] 600件以上の技術文書を検索...',
         tabDocs: '// すべての文書',
         tabBookmarks: '// ブックマーク',
@@ -148,8 +138,6 @@ class CyberTranslationEngine {
         translatedIntel: 'ローカライズ完了:',
         showOriginal: '英語の原文を表示 (EN)',
         showTranslated: '翻訳を表示',
-        ahomBadge: '⚔️ アホム戦士 // アッサム',
-        creatorFlair: 'アッサム製 (Assam) // アホム戦士の伝統',
         settingsTitle: '// GITHUB ニューラルリポジトリ設定',
         applySync: '適用して同期',
         statusOnline: 'オンライン',
@@ -203,8 +191,7 @@ class CyberTranslationEngine {
     // Subtitle
     const brandSub = document.querySelector('.brand-sub');
     if (brandSub) {
-      const isAhomTheme = document.documentElement.getAttribute('data-theme') === 'ahom-warrior';
-      brandSub.textContent = isAhomTheme ? d.brandAhomSub : d.brandSub;
+      brandSub.textContent = d.brandSub;
     }
 
     // Search Box Placeholder

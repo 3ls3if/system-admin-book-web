@@ -10,7 +10,7 @@ class CyberMusicPlayer {
     this.currentIndex = 0;
     this.isPlaying = false;
     this.audioElement = new Audio();
-    this.audioElement.crossOrigin = 'anonymous';
+    // Do NOT set crossOrigin = 'anonymous' to avoid CORS blocking standard streams
 
     // Start with a lower ambient volume initially (default 0.20 / 20%)
     let savedVol = localStorage.getItem('cyber_music_volume');
@@ -46,11 +46,7 @@ class CyberMusicPlayer {
     });
 
     this.audioElement.addEventListener('error', (e) => {
-      console.warn('Audio stream error, falling back or advancing:', e);
-      // If stream has an issue, gracefully advance or notify
-      if (this.isPlaying) {
-        this.next();
-      }
+      console.warn('Audio stream error on track:', this.getCurrentTrack()?.title, e);
     });
   }
 
@@ -62,6 +58,10 @@ class CyberMusicPlayer {
     const track = this.getCurrentTrack();
     this.isPlaying = true;
 
+    if (this.synthCtx && this.synthCtx.state === 'suspended') {
+      this.synthCtx.resume();
+    }
+
     if (track.type === 'synth') {
       this.audioElement.pause();
       this.stopProceduralSynth();
@@ -72,16 +72,21 @@ class CyberMusicPlayer {
       this.startAhomSynth();
     } else {
       this.stopProceduralSynth();
-      if (this.audioElement.src !== track.url) {
+      try {
+        const fullUrl = new URL(track.url, window.location.href).href;
+        if (this.audioElement.src !== fullUrl) {
+          this.audioElement.src = fullUrl;
+        }
+      } catch (e) {
         this.audioElement.src = track.url;
       }
+      this.audioElement.volume = this.volume;
       const playPromise = this.audioElement.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
           console.warn('Audio play autoplay policy or error:', err);
         });
       }
-      this.connectVisualizerNode(this.audioElement);
     }
 
     this.updateUI();
@@ -179,7 +184,7 @@ class CyberMusicPlayer {
     this.volume = Math.max(0, Math.min(1, val));
     this.audioElement.volume = this.volume;
     if (this.synthGain && this.synthCtx) {
-      this.synthGain.gain.setValueAtTime(this.volume * 0.4, this.synthCtx.currentTime);
+      this.synthGain.gain.setValueAtTime(this.volume * 0.7, this.synthCtx.currentTime);
     }
     localStorage.setItem('cyber_music_volume', this.volume);
     const volSlider = document.getElementById('music-volume-slider');
@@ -196,7 +201,7 @@ class CyberMusicPlayer {
       this.analyser.fftSize = 64;
 
       this.synthGain = this.synthCtx.createGain();
-      this.synthGain.gain.setValueAtTime(this.volume * 0.4, this.synthCtx.currentTime);
+      this.synthGain.gain.setValueAtTime(this.volume * 0.7, this.synthCtx.currentTime);
 
       this.synthGain.connect(this.analyser);
       this.analyser.connect(this.synthCtx.destination);

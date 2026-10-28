@@ -37,7 +37,7 @@ window.CYBER_CONFIG = {
     },
     {
       id: 'ahom-warrior',
-      name: 'Ahom Dynasty (Cyber Warrior // অসম)',
+      name: 'Ahom Theme',
       description: 'Imperial Scarlet, Muga Silk Gold & Brahmaputra Jade',
       primary: '#ff1744',
       secondary: '#ffb700',
@@ -107,81 +107,27 @@ window.CYBER_CONFIG = {
     },
     {
       id: 'procedural-ahom-synth',
-      title: 'Lachit Cyber-Hengdang // Ahom War Synth',
-      artist: 'Assam Warrior Neural Engine',
+      title: 'Ahom War Synth (Procedural)',
+      artist: 'Ahom Neural Engine',
       type: 'ahom-synth', // Procedural Ahom Warrior Web Audio Drone & Arp
       duration: 'Infinite ∞',
-      tag: 'AHOM WAR DRUMS'
+      tag: 'AHOM WAR SYNTH'
     },
     {
       id: 'the-synapse',
       title: 'The Synapse (Cyberpunk Hong Kong)',
       artist: 'Alexander Brandon (Deus Ex)',
       type: 'stream',
-      url: 'https://archive.org/download/deus_ex_soundtrack/11-The%20Synapse%20%28Hong%20Kong%20Streets%29.mp3',
+      url: 'assets/audio/the-synapse.mp3',
       duration: '2:18',
       tag: 'TECH PROTOCOL'
-    },
-    {
-      id: 'night-city',
-      title: 'Night City (Cyberpunk 2077)',
-      artist: 'R E L & Artemis Delta',
-      type: 'stream',
-      url: 'https://archive.org/download/cyberpunk-albums/Cyberpunk%202077%20Radio%20Vol.%203%20Original%20Soundtrack/Cyberpunk%202077%20Radio%20Vol.%203%20Original%20Soundtrack%20-%2009%20Night%20City.mp3',
-      duration: '3:13',
-      tag: 'NIGHT CITY'
-    },
-    {
-      id: 'stay-at-your-house',
-      title: 'I Really Want to Stay at Your House',
-      artist: 'Rosa Walton (Edgerunners)',
-      type: 'stream',
-      url: 'https://archive.org/download/cyberpunk-albums/Cyberpunk%202077%20Radio%20Vol.%202%20Original%20Soundtrack/Cyberpunk%202077%20Radio%20Vol.%202%20Original%20Soundtrack%20-%2005%20I%20Really%20Want%20to%20Stay%20at%20Your%20House.mp3',
-      duration: '4:06',
-      tag: 'EDGERUNNERS'
-    },
-    {
-      id: 'battleground-arasaka',
-      title: 'Battleground Arasaka (Combat Beat)',
-      artist: 'Marcin Przybyłowicz',
-      type: 'stream',
-      url: 'https://archive.org/download/cyberpunk-albums/Cyberpunk%202077%20-%20Original%20Score%20EP/Cyberpunk%202077%20-%20Original%20Score%20EP%20-%2003%20Battleground%20Arasaka.mp3',
-      duration: '4:48',
-      tag: 'CYBER ACTION'
-    },
-    {
-      id: 'cyberpunk-future',
-      title: 'Cyberpunk Future',
-      artist: 'Sound Gallery',
-      type: 'stream',
-      url: 'https://archive.org/download/jamendo-547905/01-2130771-Sound Gallery by Dmitry Taras-Cyberpunk Future.mp3',
-      duration: '2:45',
-      tag: 'DARK SYNTH'
-    },
-    {
-      id: 'cyberpunk-dynamic',
-      title: 'Cyberpunk Dynamic Beats',
-      artist: 'AlexZavesa',
-      type: 'stream',
-      url: 'https://archive.org/download/jamendo-454845/01-1885395-AlexZavesa-Cyberpunk Dynamic _Main Version_.mp3',
-      duration: '2:15',
-      tag: 'ANIME ACTION'
-    },
-    {
-      id: 'dreamscape',
-      title: 'Dreamscape Synthwave',
-      artist: 'Moonwalk',
-      type: 'stream',
-      url: 'https://archive.org/download/jamendo-526070/01-2037555-Moonwalk-Dreamscape _Synthwave cinematic_.mp3',
-      duration: '3:10',
-      tag: 'RETROWAVE'
     },
     {
       id: 'runner-2049',
       title: '2049 Blade Runner Tribute',
       artist: 'GH0ST // RERUN',
       type: 'stream',
-      url: 'https://archive.org/download/ghost-rerun-cyberwitch-ep/05%20-%202049.mp3',
+      url: 'assets/audio/runner-2049.mp3',
       duration: '3:47',
       tag: 'AMBIENT CYBER'
     },
@@ -190,18 +136,27 @@ window.CYBER_CONFIG = {
       title: 'Dark Lonely Water (Cyber Witch)',
       artist: 'GH0ST // RERUN',
       type: 'stream',
-      url: 'https://archive.org/download/ghost-rerun-cyberwitch-ep/03%20-%20Dark%20Lonely%20Water.mp3',
+      url: 'assets/audio/cyber-dark-waters.mp3',
       duration: '3:37',
       tag: 'CYBER WITCH'
     },
     {
-      id: 'deus-ex-title',
-      title: 'Deus Ex Cyberpunk Main Title',
-      artist: 'Alexander Brandon',
+      id: 'nyc-streets',
+      title: 'NYC Streets (Cyberpunk Ambient)',
+      artist: 'Alexander Brandon (Deus Ex)',
       type: 'stream',
-      url: 'https://archive.org/download/deus_ex_soundtrack/01-Deus%20Ex%20Main%20Title.mp3',
-      duration: '2:24',
-      tag: 'RETRO CYBER'
+      url: 'https://archive.org/download/deus_ex_soundtrack/06-Nyc%20Streets.mp3',
+      duration: '2:17',
+      tag: 'CYBER STREETS'
+    },
+    {
+      id: 'nyc-bar',
+      title: 'NYC Cyber Club Bar',
+      artist: 'Alexander Brandon (Deus Ex)',
+      type: 'stream',
+      url: 'https://archive.org/download/deus_ex_soundtrack/32-Nyc%20Bar.mp3',
+      duration: '5:11',
+      tag: 'CYBER LOUNGE'
     },
     {
       id: 'nightwave-plaza',
