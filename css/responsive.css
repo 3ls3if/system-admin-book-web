@@ -1,0 +1,91 @@
+/**
+ * CYBERPUNK RESPONSIVE STYLING
+ * Mobile, Tablet & Small Screen Adaptations
+ */
+
+@media (max-width: 1200px) {
+  #doc-toc-wrapper {
+    display: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #cyber-sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    height: calc(100vh - 64px);
+    z-index: 200;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.8);
+    transform: translateX(0);
+  }
+
+  #cyber-sidebar.closed {
+    transform: translateX(-100%);
+    width: 300px;
+    min-width: 300px;
+  }
+
+  body:not(.sidebar-closed)::after {
+    content: '';
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 64px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 150;
+  }
+
+  #cyber-main {
+    padding: 16px 20px 100px;
+  }
+
+  .doc-header-card {
+    padding: 16px 20px;
+  }
+
+  #doc-header-title {
+    font-size: 22px;
+  }
+
+  .header-right .btn-text-label {
+    display: none;
+  }
+
+  #cyber-audio-deck {
+    width: calc(100vw - 40px);
+    left: 20px;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  #cyber-header {
+    padding: 0 12px;
+  }
+
+  .brand-title {
+    font-size: 13px;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  #hud-status-badge {
+    display: none;
+  }
+
+  .doc-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .doc-metadata-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}

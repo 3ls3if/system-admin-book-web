@@ -1,0 +1,292 @@
+/**
+ * CYBERPUNK CORE AESTHETICS & THEME VARIABLES
+ * Futuristic Anime HUD, Neon Glows, Chamfered Angles, Typography & Animations
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+  /* Default: Neo Tokyo (Cyber Neon) */
+  --primary: #00f3ff;
+  --primary-glow: rgba(0, 243, 255, 0.45);
+  --primary-subtle: rgba(0, 243, 255, 0.12);
+  --secondary: #ff007f;
+  --secondary-glow: rgba(255, 0, 127, 0.45);
+  --accent: #ffe600;
+  --accent-glow: rgba(255, 230, 0, 0.4);
+  
+  --bg-dark: #070a13;
+  --bg-panel: rgba(14, 20, 36, 0.85);
+  --bg-card: rgba(18, 26, 48, 0.7);
+  --bg-input: rgba(8, 12, 22, 0.9);
+
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-bright: #ffffff;
+  --border-hud: rgba(0, 243, 255, 0.25);
+  --border-bright: #00f3ff;
+  
+  --font-display: 'Orbitron', 'Chakra Petch', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-body: 'Rajdhani', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --clip-chamfer: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  --clip-chamfer-small: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+/* THEME 2: Matrix Netrunner */
+[data-theme="matrix-netrunner"] {
+  --primary: #00ff66;
+  --primary-glow: rgba(0, 255, 102, 0.5);
+  --primary-subtle: rgba(0, 255, 102, 0.1);
+  --secondary: #00cc44;
+  --secondary-glow: rgba(0, 204, 68, 0.4);
+  --accent: #aaff00;
+  --bg-dark: #030704;
+  --bg-panel: rgba(6, 18, 10, 0.88);
+  --bg-card: rgba(8, 24, 14, 0.75);
+  --bg-input: rgba(4, 12, 6, 0.95);
+  --text-main: #d4f7dc;
+  --text-muted: #62a373;
+  --text-bright: #ffffff;
+  --border-hud: rgba(0, 255, 102, 0.25);
+  --border-bright: #00ff66;
+}
+
+/* THEME 3: Arasaka Corpo */
+[data-theme="arasaka-corpo"] {
+  --primary: #ff003c;
+  --primary-glow: rgba(255, 0, 60, 0.5);
+  --primary-subtle: rgba(255, 0, 60, 0.12);
+  --secondary: #ff8800;
+  --secondary-glow: rgba(255, 136, 0, 0.4);
+  --accent: #ffd700;
+  --bg-dark: #0a0708;
+  --bg-panel: rgba(22, 14, 16, 0.88);
+  --bg-card: rgba(30, 18, 20, 0.75);
+  --bg-input: rgba(14, 8, 10, 0.95);
+  --text-main: #f3e8e8;
+  --text-muted: #a38587;
+  --text-bright: #ffffff;
+  --border-hud: rgba(255, 0, 60, 0.3);
+  --border-bright: #ff003c;
+}
+
+/* THEME 4: Ghost in the Shell */
+[data-theme="ghost-shell"] {
+  --primary: #00b4d8;
+  --primary-glow: rgba(0, 180, 216, 0.5);
+  --primary-subtle: rgba(0, 180, 216, 0.12);
+  --secondary: #7209b7;
+  --secondary-glow: rgba(114, 9, 183, 0.4);
+  --accent: #90e0ef;
+  --bg-dark: #040814;
+  --bg-panel: rgba(10, 20, 42, 0.88);
+  --bg-card: rgba(14, 28, 58, 0.75);
+  --bg-input: rgba(6, 12, 26, 0.95);
+  --text-main: #e0f2fe;
+  --text-muted: #7ca3c5;
+  --text-bright: #ffffff;
+  --border-hud: rgba(0, 180, 216, 0.3);
+  --border-bright: #00b4d8;
+}
+
+/* THEME 5: Synthwave Sunset */
+[data-theme="synthwave-sunset"] {
+  --primary: #ff5e00;
+  --primary-glow: rgba(255, 94, 0, 0.5);
+  --primary-subtle: rgba(255, 94, 0, 0.12);
+  --secondary: #b5179e;
+  --secondary-glow: rgba(181, 23, 158, 0.45);
+  --accent: #7209b7;
+  --bg-dark: #0e0514;
+  --bg-panel: rgba(28, 12, 42, 0.88);
+  --bg-card: rgba(38, 16, 56, 0.75);
+  --bg-input: rgba(16, 6, 24, 0.95);
+  --text-main: #fde2f7;
+  --text-muted: #b37aa7;
+  --text-bright: #ffffff;
+  --border-hud: rgba(255, 94, 0, 0.3);
+  --border-bright: #ff5e00;
+}
+
+/* BASE RESET */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* BACKGROUND CANVAS */
+#cyber-grid-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* CRT SCANLINES OVERLAY */
+#cyber-scanlines-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  opacity: 0.7;
+}
+
+/* CYBERPUNK BUTTONS */
+.cyber-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-subtle);
+  border: 1px solid var(--primary);
+  clip-path: var(--clip-chamfer-small);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.cyber-btn:hover {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 15px var(--primary-glow);
+  transform: translateY(-1px);
+}
+
+.cyber-btn.secondary {
+  color: var(--secondary);
+  background: rgba(255, 0, 127, 0.1);
+  border-color: var(--secondary);
+}
+
+.cyber-btn.secondary:hover {
+  background: var(--secondary);
+  color: #000;
+  box-shadow: 0 0 15px var(--secondary-glow);
+}
+
+.cyber-btn.icon-btn {
+  padding: 7px 10px;
+}
+
+/* HUD GLITCH ANIMATION */
+.glitch-hover:hover {
+  animation: cyber-glitch 0.3s steps(2) infinite;
+}
+
+@keyframes cyber-glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+  40% { transform: translate(-1px, -1px); }
+  60% { transform: translate(2px, 1px); filter: hue-rotate(-90deg); }
+  80% { transform: translate(1px, -2px); }
+  100% { transform: translate(0) }
+}
+
+/* TOAST NOTIFICATION */
+#cyber-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cyber-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: var(--bg-panel);
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px var(--primary-glow);
+  clip-path: var(--clip-chamfer-small);
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--text-bright);
+  transform: translateX(120%);
+  transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.cyber-toast.visible {
+  transform: translateX(0);
+}
+
+.cyber-toast .toast-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  animation: pulse-glow 1.5s infinite;
+}
+
+.cyber-toast.toast-danger {
+  border-color: #ff003c;
+  box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
+}
+.cyber-toast.toast-danger .toast-led {
+  background: #ff003c;
+  box-shadow: 0 0 8px #ff003c;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* CUSTOM SCROLLBARS */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-hud);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}

@@ -1,0 +1,214 @@
+/**
+ * CYBERPUNK AUDIO DECK & MUSIC PLAYER
+ * Sci-Fi Cyber HUD Audio Player with Equalizer Spectrum Visualizer
+ */
+
+#cyber-audio-deck {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 90;
+  width: 320px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-hud);
+  clip-path: var(--clip-chamfer);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 243, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 14px 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#cyber-audio-deck.playing {
+  border-color: var(--primary);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px var(--primary-glow);
+}
+
+.deck-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.deck-tag {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.deck-tag .pulsing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 6px var(--primary);
+}
+
+#cyber-audio-deck.playing .deck-tag .pulsing-dot {
+  animation: pulse-glow 1s infinite;
+}
+
+#music-track-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  padding: 1px 5px;
+  border: 1px solid var(--border-hud);
+  color: var(--text-muted);
+}
+
+/* TRACK INFO & VISUALIZER */
+.deck-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.deck-track-info {
+  flex: 1;
+  min-width: 0;
+}
+
+#music-track-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.5px;
+}
+
+#music-track-artist {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#music-visualizer {
+  width: 70px;
+  height: 24px;
+  display: block;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* TRACK SELECT DROPDOWN */
+.deck-track-picker {
+  margin-bottom: 10px;
+}
+
+#music-track-select {
+  width: 100%;
+  padding: 4px 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-hud);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  clip-path: var(--clip-chamfer-small);
+  outline: none;
+  cursor: pointer;
+}
+
+#music-track-select:focus {
+  border-color: var(--primary);
+}
+
+/* PLAYBACK CONTROLS */
+.deck-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.deck-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.deck-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-hud);
+  color: var(--text-main);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  clip-path: var(--clip-chamfer-small);
+  transition: all 0.2s;
+}
+
+.deck-btn:hover {
+  background: var(--primary-subtle);
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.deck-btn.primary-btn {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #000;
+  width: 32px;
+  height: 32px;
+}
+
+.deck-btn.primary-btn:hover {
+  box-shadow: 0 0 15px var(--primary);
+  transform: scale(1.05);
+}
+
+.deck-volume-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  max-width: 110px;
+}
+
+.deck-volume-box svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+#music-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#music-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--primary);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+#music-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}

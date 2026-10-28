@@ -1,0 +1,172 @@
+/**
+ * CYBERPUNK CONNECTED DOCS KNOWLEDGE GRAPH STYLING
+ * Obsidian-style interactive force-directed graph HUD
+ */
+
+#cyber-graph-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 7, 14, 0.94);
+  backdrop-filter: blur(14px);
+  z-index: 1500;
+  display: none;
+  flex-direction: column;
+}
+
+#cyber-graph-modal.active {
+  display: flex;
+}
+
+/* GRAPH TOP HUD BAR */
+.graph-hud-header {
+  height: 60px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-hud);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.graph-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.graph-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+#graph-node-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-hud);
+  color: var(--text-muted);
+}
+
+.graph-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.graph-search-box input {
+  padding: 6px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-hud);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  clip-path: var(--clip-chamfer-small);
+  outline: none;
+  width: 200px;
+  transition: all 0.2s;
+}
+
+.graph-search-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+  width: 240px;
+}
+
+/* GRAPH CANVAS CONTAINER */
+.graph-canvas-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(0, 243, 255, 0.03) 0%, transparent 70%);
+}
+
+#cyber-graph-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+#cyber-graph-canvas:active {
+  cursor: grabbing;
+}
+
+/* HOVER TOOLTIP HUD CARD */
+#cyber-graph-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--bg-panel);
+  border: 1px solid var(--primary);
+  clip-path: var(--clip-chamfer-small);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px var(--primary-glow);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  z-index: 100;
+  display: none;
+  min-width: 180px;
+  max-width: 280px;
+}
+
+#cyber-graph-tooltip .tooltip-header {
+  font-size: 9px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+#cyber-graph-tooltip .tooltip-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+#cyber-graph-tooltip .tooltip-path {
+  font-size: 10px;
+  color: var(--text-muted);
+  word-break: break-all;
+  margin-bottom: 6px;
+}
+
+#cyber-graph-tooltip .tooltip-action {
+  font-size: 9px;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+/* GRAPH BOTTOM HUD INSTRUCTIONS */
+.graph-bottom-bar {
+  position: absolute;
+  bottom: 16px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: rgba(8, 12, 22, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.graph-bottom-bar span kbd {
+  color: var(--primary);
+  border: 1px solid var(--border-hud);
+  padding: 1px 4px;
+  border-radius: 2px;
+}

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="neo-tokyo">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER//SYSADMIN // Dynamic Docs & Knowledge Graph</title>
+  <meta name="description" content="Futuristic anime cyberpunk documentation & knowledge graph for System Administration notes. Realtime sync with GitHub.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  <!-- Core Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- External CDN Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+  <!-- Cyberpunk Stylesheets -->
+  <link rel="stylesheet" href="css/cyberpunk-core.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/markdown.css">
+  <link rel="stylesheet" href="css/graph.css">
+  <link rel="stylesheet" href="css/music-player.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- Ambient Cyber Background Canvas -->
+  <canvas id="cyber-grid-canvas"></canvas>
+
+  <!-- CRT Scanlines Overlay -->
+  <div id="cyber-scanlines-overlay"></div>
+
+  <!-- Application Shell -->
+  <div id="app-container">
+
+    <!-- ================= TOP HUD HEADER ================= -->
+    <header id="cyber-header">
+      <div class="header-left">
+        <!-- Sidebar Toggle -->
+        <button id="btn-toggle-sidebar" class="cyber-btn icon-btn" title="Toggle Sidebar [ [ ]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Brand Title -->
+        <a href="#/README.md" class="brand-logo" onclick="if(window.cyberSFX) window.cyberSFX.playClick();">
+          <div class="brand-title">
+            <span>CYBER//SYSADMIN</span>
+            <span class="brand-accent">v2.0</span>
+          </div>
+          <div class="brand-sub">// システム管理者 // NEURAL ARCHIVE</div>
+        </a>
+
+        <!-- System Connection Status -->
+        <div id="hud-status-badge">
+          <span id="hud-status-text">INITIALIZING...</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Theme Selector -->
+        <div class="cyber-select-wrapper" title="Select Cyberpunk Theme">
+          <select id="theme-selector" class="cyber-select">
+            <option value="neo-tokyo">NEO TOKYO (CYAN/PINK)</option>
+            <option value="matrix-netrunner">MATRIX (HACKER GREEN)</option>
+            <option value="arasaka-corpo">ARASAKA (BLOOD RED)</option>
+            <option value="ghost-shell">GHOST SHELL (COBALT)</option>
+            <option value="synthwave-sunset">SYNTHWAVE (RETRO 80s)</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+
+        <!-- Scanlines CRT Toggle -->
+        <button id="btn-toggle-scanlines" class="cyber-btn icon-btn" title="Toggle CRT Scanlines">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </button>
+
+        <!-- SFX Toggle -->
+        <button id="btn-toggle-sfx" class="cyber-btn icon-btn" title="Toggle UI Sound FX">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+
+        <!-- Connected Docs Graph Button -->
+        <button id="btn-open-graph" class="cyber-btn" title="Open Connected Docs Graph [ G ]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span class="btn-text-label">GRAPH VIEW</span>
+        </button>
+
+        <!-- Sync GitHub Button -->
+        <button id="btn-sync-github" class="cyber-btn secondary" title="Force Sync Latest Docs from GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span class="btn-text-label">SYNC GITHUB</span>
+        </button>
+
+        <!-- Settings Modal Trigger -->
+        <button id="btn-open-settings" class="cyber-btn icon-btn" title="Repository Settings">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
+        <!-- Source Repo External Link -->
+        <a href="https://github.com/3ls3if/sys-admin-book" target="_blank" rel="noopener noreferrer" class="cyber-btn icon-btn" title="View GitHub Source Repository">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- ================= WORKSPACE BODY ================= -->
+    <div id="cyber-body">
+
+      <!-- ================= SIDEBAR ================= -->
+      <aside id="cyber-sidebar">
+        <!-- Instant Search Box -->
+        <div class="sidebar-search-box">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="nav-search-input" placeholder="[CTRL+K] Search 600+ docs..." autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="sidebar-tabs">
+          <button id="tab-btn-docs" class="sidebar-tab-btn active">// ALL DOCS</button>
+          <button id="tab-btn-bookmarks" class="sidebar-tab-btn">// BOOKMARKS</button>
+        </div>
+
+        <!-- Tree Controls -->
+        <div class="sidebar-tree-controls">
+          <button id="btn-expand-all" class="tree-control-btn">+ EXPAND ALL</button>
+          <button id="btn-collapse-all" class="tree-control-btn">- COLLAPSE</button>
+        </div>
+
+        <!-- Hierarchical Tree Container -->
+        <nav id="sidebar-tree">
+          <!-- Dynamically populated from SUMMARY.md -->
+        </nav>
+      </aside>
+
+      <!-- ================= MAIN READING VIEW ================= -->
+      <main id="cyber-main">
+        <!-- Breadcrumbs Trail -->
+        <div id="cyber-breadcrumbs">
+          <span class="crumb-root">CYBER-DOCS</span>
+        </div>
+
+        <!-- Document Header HUD Card -->
+        <section class="doc-header-card">
+          <div class="doc-header-top">
+            <span id="doc-header-badge" class="doc-category-badge">// INTEL DIRECTORY</span>
+            <div class="doc-actions">
+              <!-- Bookmark Button -->
+              <button id="btn-doc-bookmark" class="cyber-btn" title="Save to Bookmarks">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>BOOKMARK</span>
+              </button>
+
+              <!-- GitHub Edit Link -->
+              <a id="btn-github-edit" href="#" target="_blank" rel="noopener noreferrer" class="cyber-btn secondary" title="View or edit source file on GitHub">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                <span>OPEN IN GITHUB</span>
+              </a>
+            </div>
+          </div>
+
+          <h1 id="doc-header-title">SYSTEM ARCHIVE</h1>
+
+          <div class="doc-metadata-bar">
+            <div class="meta-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span id="doc-meta-readtime">1 MIN READ</span>
+            </div>
+            <div class="meta-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              <span id="doc-meta-words">0 WORDS</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Content Layout with Table of Contents -->
+        <div class="reading-layout-container">
+          <!-- Dynamic Markdown Body -->
+          <article id="doc-markdown-container">
+            <!-- Rendered markdown injected here -->
+          </article>
+
+          <!-- On-This-Page Table of Contents Rail -->
+          <aside id="doc-toc-wrapper">
+            <div class="toc-header">// ON THIS PAGE</div>
+            <ul id="doc-toc-list">
+              <!-- Headings injected here -->
+            </ul>
+          </aside>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ================= CYBER AUDIO DECK ================= -->
+  <div id="cyber-audio-deck">
+    <div class="deck-header">
+      <div class="deck-tag">
+        <span class="pulsing-dot"></span>
+        <span>CYBER SOUND DECK</span>
+      </div>
+      <span id="music-track-tag">REALTIME SYNTH</span>
+    </div>
+
+    <div class="deck-body">
+      <div class="deck-track-info">
+        <div id="music-track-title">Neural Cyber-Synth</div>
+        <div id="music-track-artist">AI Web Audio Synthesizer</div>
+      </div>
+      <!-- Equalizer Visualizer Canvas -->
+      <canvas id="music-visualizer" width="70" height="24"></canvas>
+    </div>
+
+    <!-- Track Selector Dropdown -->
+    <div class="deck-track-picker">
+      <select id="music-track-select">
+        <!-- Populated dynamically from CYBER_CONFIG.playlist -->
+      </select>
+    </div>
+
+    <!-- Controls -->
+    <div class="deck-controls">
+      <div class="deck-buttons">
+        <button id="music-btn-prev" class="deck-btn" title="Previous Track">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="19 20 9 12 19 4 19 20"></polygon>
+            <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"></line>
+          </svg>
+        </button>
+
+        <button id="music-btn-play" class="deck-btn primary-btn" title="Play Cyber Music">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </button>
+
+        <button id="music-btn-next" class="deck-btn" title="Next Track">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 4 15 12 5 20 5 4"></polygon>
+            <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Volume Slider -->
+      <div class="deck-volume-box">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <input type="range" id="music-volume-slider" min="0" max="1" step="0.05" value="0.5" title="Volume">
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CONNECTED DOCS KNOWLEDGE GRAPH MODAL ================= -->
+  <div id="cyber-graph-modal">
+    <div class="graph-hud-header">
+      <div class="graph-header-left">
+        <div class="graph-title">// NEURAL KNOWLEDGE GRAPH</div>
+        <span id="graph-node-count">0 NODES // 0 LINKS</span>
+      </div>
+
+      <div class="graph-header-controls">
+        <!-- Search Node -->
+        <div class="graph-search-box">
+          <input type="text" id="graph-search-input" placeholder="Search node in graph...">
+        </div>
+
+        <!-- Category Filter -->
+        <div class="cyber-select-wrapper">
+          <select id="graph-category-filter" class="cyber-select">
+            <option value="ALL">ALL CATEGORIES</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+
+        <!-- Reset View -->
+        <button id="btn-graph-reset-view" class="cyber-btn" title="Reset View">RESET VIEW</button>
+
+        <!-- Close Graph -->
+        <button id="btn-close-graph" class="cyber-btn secondary icon-btn" title="Close Graph [ ESC ]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Canvas Container -->
+    <div class="graph-canvas-container">
+      <canvas id="cyber-graph-canvas"></canvas>
+
+      <!-- Hover Tooltip HUD Card -->
+      <div id="cyber-graph-tooltip"></div>
+
+      <!-- Instructions HUD -->
+      <div class="graph-bottom-bar">
+        <span><kbd>DRAG</kbd> PAN VIEW</span>
+        <span><kbd>WHEEL</kbd> ZOOM</span>
+        <span><kbd>CLICK</kbd> OPEN DOCUMENT</span>
+        <span><kbd>ESC</kbd> EXIT GRAPH</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SETTINGS MODAL ================= -->
+  <div id="cyber-settings-modal" class="cyber-modal">
+    <div class="cyber-modal-card">
+      <div class="modal-header">
+        <h3>// GITHUB NEURAL REPOSITORY SETTINGS</h3>
+        <button id="btn-close-settings" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+          Configure which GitHub repository documentation is dynamically pulled from.
+        </p>
+        <div class="form-group">
+          <label>// REPO OWNER / USERNAME</label>
+          <input type="text" id="input-repo-owner" value="3ls3if">
+        </div>
+        <div class="form-group">
+          <label>// REPO NAME</label>
+          <input type="text" id="input-repo-name" value="sys-admin-book">
+        </div>
+        <div class="form-group">
+          <label>// BRANCH</label>
+          <input type="text" id="input-repo-branch" value="main">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="cyber-btn" id="btn-save-settings">APPLY & SYNC</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= IMAGE LIGHTBOX MODAL ================= -->
+  <div id="cyber-lightbox-modal" onclick="window.cyberRenderer.closeLightbox()">
+    <img id="cyber-lightbox-img" src="" alt="Enlarged view">
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="cyber-toast-container"></div>
+
+  <!-- App Core JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/sfx.js"></script>
+  <script src="js/music-player.js"></script>
+  <script src="js/theme-engine.js"></script>
+  <script src="js/github-service.js"></script>
+  <script src="js/markdown-renderer.js"></script>
+  <script src="js/nav-tree.js"></script>
+  <script src="js/graph-view.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
