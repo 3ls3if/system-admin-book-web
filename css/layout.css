@@ -308,10 +308,48 @@
 }
 
 .folder-caret {
-  font-size: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--primary);
-  transition: transform 0.2s;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: rotate(90deg);
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* CYBERPUNK VECTOR FOLDER ICONS */
+.node-icon.folder-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  filter: drop-shadow(0 0 5px var(--primary-glow));
+  transition: color 0.2s, filter 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.node-row:hover .node-icon.folder-icon {
+  color: var(--secondary);
+  filter: drop-shadow(0 0 8px var(--secondary-glow));
+  transform: scale(1.08);
+}
+
+.folder-svg-open {
+  display: block;
+}
+
+.folder-svg-closed {
+  display: none;
+}
+
+.cyber-tree-node.folder.collapsed > .node-row .folder-svg-open {
+  display: none;
+}
+
+.cyber-tree-node.folder.collapsed > .node-row .folder-svg-closed {
+  display: block;
 }
 
 .node-icon-dot {
@@ -343,16 +381,23 @@
 }
 
 .node-direct-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 10px;
-  opacity: 0.4;
-  padding: 0 4px;
+  opacity: 0.35;
+  padding: 2px 4px;
+  border-radius: 2px;
+  transition: opacity 0.2s, color 0.2s, background 0.2s;
+  flex-shrink: 0;
 }
 
 .node-direct-link:hover {
   opacity: 1;
   color: var(--primary);
+  background: var(--primary-subtle);
+  box-shadow: 0 0 8px var(--primary-glow);
 }
 
 /* ================= MAIN READING VIEW ================= */

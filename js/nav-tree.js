@@ -108,11 +108,34 @@ class NavTree {
       return `
         <li class="cyber-tree-node folder" data-path="${node.path}">
           <div class="node-row" onclick="window.navTree.toggleFolder(this, event)">
-            <span class="folder-caret">▶</span>
-            <span class="node-icon">📁</span>
+            <span class="folder-caret">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </span>
+            <span class="node-icon folder-icon">
+              <!-- Cyber Open Folder Icon -->
+              <svg class="folder-svg-open" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M2 7a2 2 0 0 1 2-2h4l2 2h10a2 2 0 0 1 2 2v2H6a2 2 0 0 0-2 1.6L2.2 19.3A1 1 0 0 1 1 18.2V7z"/>
+                <path d="M4 11h18l-2.2 8.8A2 2 0 0 1 17.8 21H3.8a2 2 0 0 1-1.9-2.4L3.5 13" fill="currentColor" fill-opacity="0.18"/>
+                <line x1="7" y1="15" x2="16" y2="15" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+              </svg>
+              <!-- Cyber Closed Folder Vault Icon -->
+              <svg class="folder-svg-closed" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M2 6a2 2 0 0 1 2-2h4.5l2 2H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6z" fill="currentColor" fill-opacity="0.14"/>
+                <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
+                <circle cx="18" cy="15" r="1.5" fill="currentColor"/>
+              </svg>
+            </span>
             <span class="node-title">${node.title}</span>
             <span class="node-badge" style="border-color:${categoryColor}44; color:${categoryColor}">${node.children.length}</span>
-            <a href="#/${node.path}" class="node-direct-link" title="Open this index doc" onclick="event.stopPropagation();">↗</a>
+            <a href="#/${node.path}" class="node-direct-link" title="Open section index" onclick="event.stopPropagation();">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
           </div>
           <ul class="node-children">
             ${node.children.map(child => this.renderNode(child, depth + 1)).join('')}
