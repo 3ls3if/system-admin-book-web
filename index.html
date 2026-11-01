@@ -20,14 +20,18 @@
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
   <!-- Cyberpunk Stylesheets -->
-  <link rel="stylesheet" href="css/cyberpunk-core.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/markdown.css">
-  <link rel="stylesheet" href="css/graph.css">
-  <link rel="stylesheet" href="css/music-player.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/cyberpunk-core.css?v=3.5">
+  <link rel="stylesheet" href="css/layout.css?v=3.5">
+  <link rel="stylesheet" href="css/markdown.css?v=3.5">
+  <link rel="stylesheet" href="css/graph.css?v=3.5">
+  <link rel="stylesheet" href="css/music-player.css?v=3.5">
+  <link rel="stylesheet" href="css/tools.css?v=3.5">
+  <link rel="stylesheet" href="css/responsive.css?v=3.5">
 </head>
 <body>
+  <!-- Ambient Cyber Background Wallpaper Image Layer -->
+  <div id="cyber-wallpaper-bg"></div>
+
   <!-- Ambient Cyber Background Canvas -->
   <canvas id="cyber-grid-canvas"></canvas>
 
@@ -61,6 +65,20 @@
         <!-- System Connection Status -->
         <div id="hud-status-badge">
           <span id="hud-status-text">INITIALIZING...</span>
+        </div>
+
+        <!-- Realtime Cyber Diagnostics HUD Bar -->
+        <div id="hud-diagnostics-bar" class="hud-diagnostics" title="Realtime Cyber Diagnostics">
+          <div class="diag-item">
+            <span class="diag-dot"></span>
+            <span id="cyber-clock-local">00:00:00</span>
+          </div>
+          <div class="diag-item">
+            <span id="cyber-clock-utc">UTC 00:00:00</span>
+          </div>
+          <div class="diag-item">
+            <span id="cyber-fps-counter">60 FPS</span>
+          </div>
         </div>
       </div>
 
@@ -104,6 +122,14 @@
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
           </svg>
+        </button>
+
+        <!-- Cyber Tools Deck Button -->
+        <button id="btn-open-tools" class="cyber-btn primary" title="Open Sysadmin Cyber Tools [ T ]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span class="btn-text-label">CYBER TOOLS</span>
         </button>
 
         <!-- Connected Docs Graph Button -->
@@ -165,6 +191,7 @@
         <div class="sidebar-tabs">
           <button id="tab-btn-docs" class="sidebar-tab-btn active">// ALL DOCS</button>
           <button id="tab-btn-bookmarks" class="sidebar-tab-btn">// BOOKMARKS</button>
+          <a href="#/tools" id="tab-btn-tools" class="sidebar-tab-btn" style="text-decoration:none; text-align:center;">// ⚡ TOOLS</a>
         </div>
 
         <!-- Tree Controls -->
@@ -249,6 +276,707 @@
             </ul>
           </aside>
         </div>
+      </main>
+
+      <!-- ================= CYBER SYSADMIN TOOLS VIEW ================= -->
+      <main id="cyber-tools-view" style="display:none;">
+        <!-- Tools Header Banner -->
+        <div class="tools-hud-header cyber-corner-box">
+          <div class="tools-hud-title-box">
+            <div class="tools-hud-badge">
+              <span class="pulsing-dot"></span>
+              <span>// SYSADMIN WORKBENCH // NEURAL UTILITIES DECK</span>
+            </div>
+            <div class="tools-hud-title">
+              <span>CYBER//TOOLS</span>
+              <span class="title-accent">DECK</span>
+            </div>
+            <div class="tools-hud-desc">
+              100% Client-Side Windows Server, Networking, Automation &amp; Scripting Arsenal
+            </div>
+          </div>
+          <div class="tools-hud-actions">
+            <a href="#/README.md" class="cyber-btn secondary" title="Return to Documentation">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <span>RETURN TO DOCS</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tools-nav-bar">
+          <button class="tools-tab-btn active" data-tool="dns">
+            <span>🌐</span> <span>DNS EXPLORER (DOH)</span>
+          </button>
+          <button class="tools-tab-btn" data-tool="storage">
+            <span>💾</span> <span>STORAGE &amp; RAM CONVERTER</span>
+          </button>
+          <button class="tools-tab-btn" data-tool="subnet">
+            <span>🖧</span> <span>SUBNET &amp; DHCP SCOPE</span>
+          </button>
+          <button class="tools-tab-btn" data-tool="scratchpad">
+            <span>📝</span> <span>ADMIN SCRATCHPAD</span>
+          </button>
+          <button class="tools-tab-btn" data-tool="powershell">
+            <span>⚡</span> <span>POWERSHELL ARSENAL</span>
+          </button>
+          <button class="tools-tab-btn" data-tool="netarch">
+            <span>🖧</span> <span>NETWORK ARCHITECTURE</span>
+          </button>
+        </div>
+
+        <!-- ================= TOOL PANEL 1: DNS EXPLORER ================= -->
+        <section id="tool-panel-dns" class="tool-panel active">
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>DNS OVER HTTPS (DOH) RECORDS QUERY</span>
+                <span class="card-tag">// MULTI-RESOLVER</span>
+              </div>
+              <div class="tool-card-subtitle">Direct client-side DNS lookup via Cloudflare (1.1.1.1) and Google (8.8.8.8)</div>
+            </div>
+
+            <div class="cyber-form-row">
+              <div class="cyber-form-group" style="flex:2; min-width:240px;">
+                <label class="cyber-label">// DOMAIN / HOSTNAME</label>
+                <input type="text" id="dns-input-domain" class="cyber-input" placeholder="e.g. microsoft.com or _ldap._tcp.dc._msdcs.domain.com" value="microsoft.com">
+              </div>
+              <div class="cyber-form-group" style="max-width:140px;">
+                <label class="cyber-label">// RECORD TYPE</label>
+                <select id="dns-select-type" class="cyber-select-box">
+                  <option value="A">A (IPv4)</option>
+                  <option value="AAAA">AAAA (IPv6)</option>
+                  <option value="CNAME">CNAME</option>
+                  <option value="MX">MX (Mail)</option>
+                  <option value="TXT">TXT (SPF/DKIM)</option>
+                  <option value="NS">NS (Nameserver)</option>
+                  <option value="SRV">SRV (Service)</option>
+                  <option value="SOA">SOA (Zone)</option>
+                  <option value="PTR">PTR (Reverse)</option>
+                </select>
+              </div>
+              <div class="cyber-form-group" style="max-width:180px;">
+                <label class="cyber-label">// RESOLVER</label>
+                <select id="dns-select-resolver" class="cyber-select-box">
+                  <option value="cloudflare">Cloudflare (1.1.1.1)</option>
+                  <option value="google">Google (8.8.8.8)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div style="margin-bottom:16px;">
+              <span class="cyber-label" style="font-size:10px;">// QUICK TARGET PRESETS:</span>
+              <div class="presets-group">
+                <button class="preset-chip dns-preset" data-domain="microsoft.com" data-type="A">microsoft.com (A)</button>
+                <button class="preset-chip dns-preset" data-domain="google.com" data-type="MX">google.com (MX)</button>
+                <button class="preset-chip dns-preset" data-domain="autodiscover.outlook.com" data-type="CNAME">autodiscover.outlook.com</button>
+                <button class="preset-chip dns-preset" data-domain="cloudflare.com" data-type="TXT">cloudflare.com (TXT)</button>
+                <button class="preset-chip dns-preset" data-domain="github.com" data-type="NS">github.com (NS)</button>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button id="btn-dns-query" class="cyber-btn primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <span>RESOLVE RECORD</span>
+              </button>
+              <button id="btn-dns-query-all" class="cyber-btn secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>MULTI-RECORD AUDIT (A/MX/TXT/NS)</span>
+              </button>
+            </div>
+
+            <!-- Results Output -->
+            <div id="dns-results-box" style="margin-top:20px;">
+              <div style="padding:20px; text-align:center; color:var(--text-muted); font-family:var(--font-mono); font-size:12px;">
+                Enter a domain name above and click <strong>RESOLVE RECORD</strong> to query live DNS via DoH.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TOOL PANEL 2: STORAGE & RAM CONVERTER ================= -->
+        <section id="tool-panel-storage" class="tool-panel">
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>STORAGE &amp; MEMORY PRECISION CONVERTER</span>
+                <span class="card-tag">// 1024 BINARY VS 1000 DECIMAL</span>
+              </div>
+              <div class="tool-card-subtitle">Accurate SAN LUN, Hyper-V VHDX, RAM &amp; Disk Capacity Calculations</div>
+            </div>
+
+            <div class="cyber-form-row">
+              <div class="cyber-form-group" style="flex:2; min-width:200px;">
+                <label class="cyber-label">// STORAGE QUANTITY</label>
+                <input type="number" id="storage-input-val" class="cyber-input" value="1000" min="0" step="any">
+              </div>
+              <div class="cyber-form-group" style="max-width:180px;">
+                <label class="cyber-label">// SOURCE UNIT</label>
+                <select id="storage-select-unit" class="cyber-select-box">
+                  <option value="B">Bytes (B)</option>
+                  <option value="KB">Kilobytes (KB / KiB)</option>
+                  <option value="MB">Megabytes (MB / MiB)</option>
+                  <option value="GB" selected>Gigabytes (GB / GiB)</option>
+                  <option value="TB">Terabytes (TB / TiB)</option>
+                  <option value="PB">Petabytes (PB / PiB)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Storage Presets -->
+            <div style="margin-bottom:16px;">
+              <span class="cyber-label" style="font-size:10px;">// COMMON SERVER PRESETS:</span>
+              <div class="presets-group">
+                <button class="preset-chip storage-preset-btn" data-val="16" data-unit="GB">16 GB RAM</button>
+                <button class="preset-chip storage-preset-btn" data-val="32" data-unit="GB">32 GB RAM</button>
+                <button class="preset-chip storage-preset-btn" data-val="64" data-unit="GB">64 GB RAM</button>
+                <button class="preset-chip storage-preset-btn" data-val="500" data-unit="GB">500 GB SSD</button>
+                <button class="preset-chip storage-preset-btn" data-val="1" data-unit="TB">1 TB NVMe</button>
+                <button class="preset-chip storage-preset-btn" data-val="4" data-unit="TB">4 TB Enterprise HDD</button>
+                <button class="preset-chip storage-preset-btn" data-val="10" data-unit="TB">10 TB SAN Volume</button>
+              </div>
+            </div>
+
+            <!-- Converted Cards Grid -->
+            <div class="storage-grid">
+              <div class="storage-card" id="card-bytes">
+                <div class="unit-name">BYTES (B)</div>
+                <div class="unit-value">0 B</div>
+                <div class="unit-sub">Exact binary raw byte count</div>
+              </div>
+              <div class="storage-card" id="card-mb">
+                <div class="unit-name">MEGABYTES (MB / MiB)</div>
+                <div class="unit-value">0 MB</div>
+                <div class="unit-sub">Base 1024 vs 1000</div>
+              </div>
+              <div class="storage-card highlight" id="card-gb">
+                <div class="unit-name">GIGABYTES (GB / GiB)</div>
+                <div class="unit-value">0 GB</div>
+                <div class="unit-sub">Windows Explorer Metric</div>
+              </div>
+              <div class="storage-card" id="card-tb">
+                <div class="unit-name">TERABYTES (TB / TiB)</div>
+                <div class="unit-value">0 TB</div>
+                <div class="unit-sub">Datacenter / SAN Metric</div>
+              </div>
+            </div>
+
+            <!-- Drive Vendor vs Windows OS Callout -->
+            <div class="storage-diff-callout">
+              <div class="storage-diff-icon">⚡</div>
+              <div id="storage-diff-text">Calculating binary differences...</div>
+            </div>
+          </div>
+
+          <!-- Extra Admin Calculators: Pagefile & IOPS -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+            <!-- Pagefile Sizing -->
+            <div class="cyber-tool-card cyber-corner-box" style="margin-bottom:0;">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <span>WINDOWS PAGEFILE SIZING GUIDE</span>
+                </div>
+                <div class="tool-card-subtitle">Microsoft Best Practice Guidelines</div>
+              </div>
+              <div class="cyber-form-group">
+                <label class="cyber-label">// INSTALLED PHYSICAL RAM (GB)</label>
+                <input type="number" id="pagefile-input-ram" class="cyber-input" value="32" min="1" max="2048">
+              </div>
+              <div id="pagefile-results"></div>
+            </div>
+
+            <!-- IOPS to Throughput -->
+            <div class="cyber-tool-card cyber-corner-box" style="margin-bottom:0;">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <span>STORAGE IOPS TO THROUGHPUT</span>
+                </div>
+                <div class="tool-card-subtitle">Calculate SAN / SSD transfer rates</div>
+              </div>
+              <div class="cyber-form-row">
+                <div class="cyber-form-group">
+                  <label class="cyber-label">// IOPS RATING</label>
+                  <input type="number" id="iops-input-val" class="cyber-input" value="25000" min="1">
+                </div>
+                <div class="cyber-form-group">
+                  <label class="cyber-label">// BLOCK SIZE (KB)</label>
+                  <select id="iops-select-block" class="cyber-select-box">
+                    <option value="4" selected>4 KB (Random I/O)</option>
+                    <option value="8">8 KB (SQL Server OLTP)</option>
+                    <option value="64">64 KB (SQL Extents / Sequential)</option>
+                    <option value="128">128 KB (Large File Streaming)</option>
+                    <option value="256">256 KB (Backup / Restore)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="subnet-item" style="margin-top:10px;">
+                <div class="sub-label">ESTIMATED THROUGHPUT BANDWIDTH</div>
+                <div class="sub-val" id="iops-result-val">0 MB/s</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TOOL PANEL 3: SUBNET & DHCP ================= -->
+        <section id="tool-panel-subnet" class="tool-panel">
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>IPV4 CIDR SUBNET CALCULATOR</span>
+                <span class="card-tag">// BITWISE DECODER</span>
+              </div>
+              <div class="tool-card-subtitle">Calculate Host Ranges, Masks, Broadcasts and Binary Boundaries</div>
+            </div>
+
+            <div class="cyber-form-row">
+              <div class="cyber-form-group" style="flex:2; min-width:220px;">
+                <label class="cyber-label">// IP ADDRESS</label>
+                <input type="text" id="subnet-input-ip" class="cyber-input" value="192.168.1.100" placeholder="e.g. 192.168.1.1">
+              </div>
+              <div class="cyber-form-group" style="flex:3; min-width:240px;">
+                <label class="cyber-label">// CIDR PREFIX LENGTH</label>
+                <div class="cyber-range-wrapper">
+                  <input type="range" id="subnet-slider-cidr" class="cyber-range-slider" min="8" max="30" value="24">
+                  <span id="subnet-cidr-val" class="cyber-range-val">/24</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subnet Presets -->
+            <div style="margin-bottom:16px;">
+              <span class="cyber-label" style="font-size:10px;">// COMMON SUBNETS:</span>
+              <div class="presets-group">
+                <button class="preset-chip subnet-preset-btn" data-ip="192.168.1.1" data-cidr="24">192.168.1.0/24 (254 Hosts)</button>
+                <button class="preset-chip subnet-preset-btn" data-ip="10.0.0.1" data-cidr="16">10.0.0.0/16 (65,534 Hosts)</button>
+                <button class="preset-chip subnet-preset-btn" data-ip="172.16.0.1" data-cidr="20">172.16.0.0/20 (4,094 Hosts)</button>
+                <button class="preset-chip subnet-preset-btn" data-ip="192.168.0.1" data-cidr="23">192.168.0.0/23 (510 Hosts)</button>
+                <button class="preset-chip subnet-preset-btn" data-ip="10.100.1.1" data-cidr="29">10.100.1.0/29 (6 Hosts / P2P)</button>
+              </div>
+            </div>
+
+            <!-- Subnet Calculation Results Grid -->
+            <div class="subnet-output-grid">
+              <div class="subnet-item">
+                <div class="sub-label">NETWORK ID</div>
+                <div class="sub-val" id="sub-net-id">192.168.1.0</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">SUBNET MASK</div>
+                <div class="sub-val" id="sub-net-mask">255.255.255.0</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">WILDCARD MASK</div>
+                <div class="sub-val" id="sub-wildcard">0.0.0.255</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">BROADCAST ADDRESS</div>
+                <div class="sub-val" id="sub-bcast">192.168.1.255</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">FIRST USABLE HOST IP</div>
+                <div class="sub-val" id="sub-first-host">192.168.1.1</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">LAST USABLE HOST IP</div>
+                <div class="sub-val" id="sub-last-host">192.168.1.254</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">USABLE HOSTS</div>
+                <div class="sub-val" id="sub-usable-hosts" style="color:#00ff66;">254</div>
+              </div>
+              <div class="subnet-item">
+                <div class="sub-label">TOTAL IP ADDRESSES</div>
+                <div class="sub-val" id="sub-total-hosts">256</div>
+              </div>
+              <div class="subnet-item" style="grid-column: 1 / -1;">
+                <div class="sub-label">ADDRESS CLASS &amp; TYPE</div>
+                <div class="sub-val" id="sub-ip-type" style="font-size:12px;">Class C // PRIVATE (RFC 1918)</div>
+              </div>
+            </div>
+
+            <!-- Binary Visualization -->
+            <div class="subnet-binary-row" id="subnet-binary-display"></div>
+          </div>
+
+          <!-- Windows Server DHCP Scope Automation -->
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>WINDOWS SERVER DHCP SCOPE BUILDER</span>
+                <span class="card-tag">// POWERSHELL READY</span>
+              </div>
+              <div class="tool-card-subtitle">Generate Add-DhcpServerv4Scope commands with static reserve ranges</div>
+            </div>
+
+            <div class="cyber-form-row">
+              <div class="cyber-form-group">
+                <label class="cyber-label">// DHCP SCOPE NAME</label>
+                <input type="text" id="dhcp-scope-name" class="cyber-input" value="Main_Office_LAN">
+              </div>
+              <div class="cyber-form-group">
+                <label class="cyber-label">// STATIC EXCLUSION COUNT (IPs)</label>
+                <input type="number" id="dhcp-exclude-count" class="cyber-input" value="20" min="0" max="200" title="Reserve the first N usable IPs for Gateways, Switches &amp; Servers">
+              </div>
+              <div class="cyber-form-group">
+                <label class="cyber-label">// DEFAULT GATEWAY LOCATION</label>
+                <select id="dhcp-gateway-type" class="cyber-select-box">
+                  <option value="first">First Usable IP (.1)</option>
+                  <option value="last">Last Usable IP (.254)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Terminal Output -->
+            <div class="cyber-terminal-box">
+              <div class="term-header">
+                <span>POWERSHELL COMMANDS FOR WINDOWS SERVER DHCP ROLE</span>
+                <button id="btn-copy-dhcp-ps" class="cyber-btn" style="padding:4px 10px; font-size:10px;">COPY POWERSHELL</button>
+              </div>
+              <pre><code id="dhcp-ps-output"># Loading DHCP scope script...</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TOOL PANEL 4: ADMIN SCRATCHPAD ================= -->
+        <section id="tool-panel-scratchpad" class="tool-panel">
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>CYBER ADMIN SCRATCHPAD &amp; DIRECT EXPORTER</span>
+                <span class="card-tag">// LOCALSTORAGE PERSISTENT</span>
+              </div>
+              <div class="tool-card-subtitle">Draft PowerShell snippets, batch scripts, or configs and download directly with zero server roundtrips</div>
+            </div>
+
+            <!-- Templates Row -->
+            <div style="margin-bottom:14px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span class="cyber-label" style="font-size:10px;">// LOAD STARTER TEMPLATE:</span>
+              <button class="preset-chip scratchpad-template-btn" data-tpl="ps1">PowerShell Template (.ps1)</button>
+              <button class="preset-chip scratchpad-template-btn" data-tpl="bat">Batch Script (.bat)</button>
+              <button class="preset-chip scratchpad-template-btn" data-tpl="reg">Registry Hardening (.reg)</button>
+              <button class="preset-chip scratchpad-template-btn" data-tpl="robocopy">Robocopy Job (.bat)</button>
+            </div>
+
+            <!-- Scratchpad Editor Box -->
+            <div class="scratchpad-container">
+              <div class="scratchpad-toolbar">
+                <div class="scratchpad-stats">
+                  <span>LINES: <span class="stat-val" id="scratchpad-line-count">1</span></span>
+                  <span>WORDS: <span class="stat-val" id="scratchpad-words">0</span></span>
+                  <span>CHARS: <span class="stat-val" id="scratchpad-chars">0</span></span>
+                  <span style="color:#00ff66;">AUTO-SAVED IN BROWSER</span>
+                </div>
+                <div class="scratchpad-actions">
+                  <button id="btn-scratchpad-copy" class="cyber-btn" style="padding:4px 10px; font-size:10px;">COPY TO CLIPBOARD</button>
+                  <button id="btn-scratchpad-clear" class="cyber-btn secondary" style="padding:4px 10px; font-size:10px;">CLEAR</button>
+                </div>
+              </div>
+
+              <div class="scratchpad-editor-body">
+                <div class="scratchpad-line-numbers" id="scratchpad-lines">1</div>
+                <textarea id="scratchpad-textarea" class="scratchpad-textarea" spellcheck="false" placeholder="Write commands or paste logs here..."></textarea>
+              </div>
+            </div>
+
+            <!-- Direct Download Buttons -->
+            <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <span class="cyber-label" style="font-size:11px;">// EXPORT DIRECTLY:</span>
+              <button id="btn-download-txt" class="cyber-btn primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>DOWNLOAD .TXT</span>
+              </button>
+              <button id="btn-download-ps1" class="cyber-btn secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>DOWNLOAD .PS1 (POWERSHELL)</span>
+              </button>
+              <button id="btn-download-bat" class="cyber-btn">
+                <span>DOWNLOAD .BAT (BATCH)</span>
+              </button>
+              <button id="btn-download-reg" class="cyber-btn">
+                <span>DOWNLOAD .REG (REGISTRY)</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TOOL PANEL 5: POWERSHELL ARSENAL ================= -->
+        <section id="tool-panel-powershell" class="tool-panel">
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>POWERSHELL AUTOMATION ARSENAL</span>
+                <span class="card-tag">// GITBOOK INTEGRATED</span>
+              </div>
+              <div class="tool-card-subtitle">Interactive parameter builders for the scripts in your System Administration GitBook</div>
+            </div>
+
+            <!-- Script Selector Pills -->
+            <div class="ps-arsenal-selector">
+              <div class="ps-script-tab active" data-script="audit">
+                <span class="ps-tab-cat">// AUDIT &amp; SECURITY</span>
+                <span class="ps-tab-title">Windows Security Auditor</span>
+              </div>
+              <div class="ps-script-tab" data-script="iis">
+                <span class="ps-tab-cat">// WEB &amp; LOG ANALYSIS</span>
+                <span class="ps-tab-title">IIS Port 80/443 Log Parser</span>
+              </div>
+              <div class="ps-script-tab" data-script="sql">
+                <span class="ps-tab-cat">// DATABASE (MS SQL)</span>
+                <span class="ps-tab-title">SQL Auto-Backup &amp; Retention</span>
+              </div>
+              <div class="ps-script-tab" data-script="monitor">
+                <span class="ps-tab-cat">// CONTINUOUS MONITORING</span>
+                <span class="ps-tab-title">Server Health &amp; TCP Monitor</span>
+              </div>
+              <div class="ps-script-tab" data-script="m365">
+                <span class="ps-tab-cat">// CLOUD &amp; M365</span>
+                <span class="ps-tab-title">M365 Guest User Cleaner</span>
+              </div>
+              <div class="ps-script-tab" data-script="robocopy">
+                <span class="ps-tab-cat">// FILE MIGRATION</span>
+                <span class="ps-tab-title">Robocopy Multi-Thread Job</span>
+              </div>
+            </div>
+
+            <!-- Configurable Parameters Container -->
+            <div id="ps-params-container" style="background:rgba(8,10,18,0.7); border:1px solid var(--border-hud); padding:16px; margin-bottom:16px;"></div>
+
+            <!-- Generated Script Output -->
+            <div class="cyber-terminal-box">
+              <div class="term-header">
+                <span id="ps-script-header-title">GENERATED SCRIPT (READY TO RUN)</span>
+                <div style="display:flex; gap:8px;">
+                  <button id="btn-copy-ps-code" class="cyber-btn" style="padding:4px 10px; font-size:10px;">COPY SCRIPT</button>
+                  <button id="btn-download-ps-code" class="cyber-btn secondary" style="padding:4px 10px; font-size:10px;">DOWNLOAD FILE</button>
+                  <a id="btn-ps-view-doc" href="#" class="cyber-btn" style="padding:4px 10px; font-size:10px; text-decoration:none;">VIEW GITBOOK GUIDE</a>
+                </div>
+              </div>
+              <pre><code id="ps-generated-code"># Generating script...</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TOOL PANEL 6: NETWORK ARCHITECTURE BUILDER ================= -->
+        <section id="tool-panel-netarch" class="tool-panel">
+          <div class="cyber-tool-card cyber-corner-box">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>INTERACTIVE NETWORK &amp; VIRTUAL INFRASTRUCTURE BUILDER</span>
+                <span class="card-tag">// TOPOLOGY CANVAS</span>
+              </div>
+              <div class="tool-card-subtitle">Design multi-tier enterprise network topologies, configure security perimeters (WAF, Firewall, Reverse Proxy, Load Balancer, AD DC, DBs) &amp; export as Mermaid or PNG</div>
+            </div>
+
+            <!-- Toolbar Controls -->
+            <div class="netarch-toolbar">
+              <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <span class="cyber-label" style="margin:0; font-size:10px;">// TEMPLATES:</span>
+                <button type="button" class="cyber-btn" id="btn-netarch-tpl-3tier" style="padding:4px 9px; font-size:10px;">🏛️ 3-Tier Web App</button>
+                <button type="button" class="cyber-btn" id="btn-netarch-tpl-zerotrust" style="padding:4px 9px; font-size:10px;">🛡️ Zero-Trust DMZ</button>
+                <button type="button" class="cyber-btn" id="btn-netarch-tpl-corplan" style="padding:4px 9px; font-size:10px;">🏢 Corporate AD LAN</button>
+              </div>
+              <div style="margin-left:auto; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                <button type="button" class="cyber-btn" id="btn-netarch-connect-mode" style="padding:4px 10px; font-size:10px;" title="Click source node then target node to link">
+                  <span>🔗 CONNECT NODES: OFF</span>
+                </button>
+                <button type="button" class="cyber-btn secondary" id="btn-netarch-delete-node" style="padding:4px 10px; font-size:10px;">
+                  <span>✕ DELETE SELECTED</span>
+                </button>
+                <button type="button" class="cyber-btn secondary" id="btn-netarch-clear" style="padding:4px 10px; font-size:10px;">
+                  <span>🗑️ CLEAR ALL</span>
+                </button>
+                <button type="button" class="cyber-btn primary" id="btn-netarch-export-png" style="padding:4px 10px; font-size:10px;">
+                  <span>🖼️ EXPORT PNG</span>
+                </button>
+                <button type="button" class="cyber-btn primary" id="btn-netarch-export-mermaid" style="padding:4px 10px; font-size:10px;">
+                  <span>📋 MERMAID CODE</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Workbench: Palette | Canvas | Inspector -->
+            <div class="netarch-workbench">
+              <!-- Left: Palette -->
+              <div class="netarch-palette cyber-corner-box">
+                <div class="palette-category-title">// PERIMETER &amp; SECURITY</div>
+                <button type="button" class="palette-item-btn" data-type="internet" title="Add Internet / External WAN">
+                  <span class="item-icon">🌐</span>
+                  <span>Internet / WAN</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="waf" title="Add Cloud Web Application Firewall">
+                  <span class="item-icon">🛡️</span>
+                  <span>Cloud WAF</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="firewall" title="Add Hardware / Edge Firewall">
+                  <span class="item-icon">🔥</span>
+                  <span>Edge Firewall</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="vpn" title="Add IPsec / SSL VPN Gateway">
+                  <span class="item-icon">🔒</span>
+                  <span>VPN Gateway</span>
+                </button>
+
+                <div class="palette-category-title" style="margin-top:8px;">// TRAFFIC &amp; PROXY</div>
+                <button type="button" class="palette-item-btn" data-type="loadbalancer" title="Add Load Balancer (HAProxy / ALB)">
+                  <span class="item-icon">⚖️</span>
+                  <span>Load Balancer</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="proxy" title="Add Reverse Proxy (Nginx / Envoy)">
+                  <span class="item-icon">🔄</span>
+                  <span>Reverse Proxy</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="switch" title="Add Core L3 Switch">
+                  <span class="item-icon">🖧</span>
+                  <span>Core Switch</span>
+                </button>
+
+                <div class="palette-category-title" style="margin-top:8px;">// COMPUTE &amp; APP SERVERS</div>
+                <button type="button" class="palette-item-btn" data-type="iis" title="Add Windows Server IIS Web">
+                  <span class="item-icon">🪟</span>
+                  <span>Windows IIS Server</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="dc" title="Add Active Directory Domain Controller">
+                  <span class="item-icon">🔑</span>
+                  <span>Active Directory DC</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="linux" title="Add Linux Application Server">
+                  <span class="item-icon">🐧</span>
+                  <span>Linux App Server</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="k8s" title="Add Kubernetes Cluster">
+                  <span class="item-icon">☸️</span>
+                  <span>Kubernetes Cluster</span>
+                </button>
+
+                <div class="palette-category-title" style="margin-top:8px;">// DATA &amp; STORAGE</div>
+                <button type="button" class="palette-item-btn" data-type="sql" title="Add Microsoft SQL Server">
+                  <span class="item-icon">🗄️</span>
+                  <span>MS SQL Enterprise</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="postgres" title="Add PostgreSQL Database">
+                  <span class="item-icon">🐘</span>
+                  <span>PostgreSQL DB</span>
+                </button>
+                <button type="button" class="palette-item-btn" data-type="storage" title="Add SAN Storage / S2D Array">
+                  <span class="item-icon">💾</span>
+                  <span>SAN / S2D Storage</span>
+                </button>
+              </div>
+
+              <!-- Center: Canvas Area -->
+              <div class="netarch-canvas-container" id="netarch-canvas">
+                <svg id="netarch-svg-layer"></svg>
+                <div id="netarch-nodes-layer"></div>
+                <div id="netarch-canvas-hint" style="position:absolute; bottom:10px; left:14px; font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.4); pointer-events:none; z-index:3;">
+                  💡 Click or drag palette items to add • Drag nodes to position • Toggle [CONNECT NODES] to wire
+                </div>
+              </div>
+
+              <!-- Right: Inspector -->
+              <div class="netarch-inspector cyber-corner-box" id="netarch-inspector-panel">
+                <div class="inspector-title">
+                  <span>// NODE TELEMETRY &amp; CONFIG</span>
+                  <span class="res-badge success" id="netarch-inspect-badge">READY</span>
+                </div>
+
+                <div id="netarch-inspector-empty" style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); padding:20px 0; text-align:center;">
+                  Select any component on the canvas to inspect &amp; edit its network parameters.
+                </div>
+
+                <div id="netarch-inspector-form" style="display:none; flex-direction:column; gap:12px;">
+                  <div class="cyber-form-group">
+                    <label class="cyber-label">// NODE LABEL</label>
+                    <input type="text" id="netarch-input-label" class="cyber-input" style="padding:6px 10px; font-size:11px;">
+                  </div>
+
+                  <div class="cyber-form-group">
+                    <label class="cyber-label">// NETWORK ZONE</label>
+                    <select id="netarch-select-zone" class="cyber-select" style="padding:6px 10px; font-size:11px;">
+                      <option value="public">Public Internet / WAN</option>
+                      <option value="dmz">DMZ / Perimeter Zone</option>
+                      <option value="private">Internal Corporate LAN / App Tier</option>
+                      <option value="database">Secure Database &amp; Storage Tier</option>
+                    </select>
+                  </div>
+
+                  <div class="cyber-form-group">
+                    <label class="cyber-label">// IP ADDRESS &amp; CIDR</label>
+                    <input type="text" id="netarch-input-ip" class="cyber-input" style="padding:6px 10px; font-size:11px;" placeholder="e.g. 192.168.1.10/24">
+                  </div>
+
+                  <div class="cyber-form-group">
+                    <label class="cyber-label">// ACTIVE PORTS</label>
+                    <input type="text" id="netarch-input-ports" class="cyber-input" style="padding:6px 10px; font-size:11px;" placeholder="e.g. 80, 443, 3389">
+                  </div>
+
+                  <div class="cyber-form-group">
+                    <label class="cyber-label">// STATUS</label>
+                    <select id="netarch-select-status" class="cyber-select" style="padding:6px 10px; font-size:11px;">
+                      <option value="ONLINE">ONLINE // HEALTHY</option>
+                      <option value="ACTIVE">ACTIVE // LOADED</option>
+                      <option value="STANDBY">STANDBY // FAILOVER</option>
+                      <option value="ISOLATED">ISOLATED // MAINTENANCE</option>
+                    </select>
+                  </div>
+
+                  <div style="display:flex; gap:8px; margin-top:8px;">
+                    <button type="button" class="cyber-btn" id="btn-netarch-link-source" style="flex:1; padding:6px; font-size:10px;">
+                      <span>🔗 CONNECT THIS</span>
+                    </button>
+                    <button type="button" class="cyber-btn secondary" id="btn-netarch-delete-this" style="padding:6px 10px; font-size:10px;">
+                      <span>✕ REMOVE</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Global Stats HUD -->
+                <div style="margin-top:auto; padding-top:12px; border-top:1px dashed var(--border-hud); font-family:var(--font-mono); font-size:10px; color:var(--text-muted); display:flex; justify-content:space-between;">
+                  <span>NODES: <span id="netarch-stat-nodes" style="color:var(--primary); font-weight:bold;">0</span></span>
+                  <span>LINKS: <span id="netarch-stat-links" style="color:var(--secondary); font-weight:bold;">0</span></span>
+                  <span>ZONES: <span id="netarch-stat-zones" style="color:#00ff66; font-weight:bold;">0</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mermaid Export Modal Dialog -->
+            <div id="netarch-mermaid-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(5px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+              <div class="cyber-tool-card cyber-corner-box" style="width:100%; max-width:680px; max-height:85vh; display:flex; flex-direction:column; background:rgba(10,14,26,0.98); border:1px solid var(--primary); box-shadow:0 0 30px var(--primary-glow);">
+                <div class="tool-card-header">
+                  <div class="tool-card-title">
+                    <span>GENERATED MERMAID.JS TOPOLOGY DIAGRAM</span>
+                    <span class="card-tag">// FLOWCHART CODE</span>
+                  </div>
+                  <div class="tool-card-subtitle">Ready to paste into GitHub, GitBook, Obsidian, or Mermaid Live Editor</div>
+                </div>
+                <div class="cyber-terminal-box" style="flex:1; overflow-y:auto; margin:14px 0; max-height:350px;">
+                  <pre><code id="netarch-mermaid-code" style="color:#00ff66; font-family:var(--font-mono); font-size:12px;"></code></pre>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                  <button type="button" class="cyber-btn" id="btn-netarch-close-modal" style="padding:6px 14px;">CLOSE</button>
+                  <button type="button" class="cyber-btn primary" id="btn-netarch-copy-mermaid" style="padding:6px 14px;">COPY TO CLIPBOARD</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
 
     </div>
@@ -406,15 +1134,17 @@
   <div id="cyber-toast-container"></div>
 
   <!-- App Core JavaScript Modules -->
-  <script src="js/config.js"></script>
-  <script src="js/sfx.js"></script>
-  <script src="js/music-player.js"></script>
-  <script src="js/theme-engine.js"></script>
-  <script src="js/translation-engine.js"></script>
-  <script src="js/github-service.js"></script>
-  <script src="js/markdown-renderer.js"></script>
-  <script src="js/nav-tree.js"></script>
-  <script src="js/graph-view.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/config.js?v=3.5"></script>
+  <script src="js/sfx.js?v=3.5"></script>
+  <script src="js/music-player.js?v=3.5"></script>
+  <script src="js/theme-engine.js?v=3.5"></script>
+  <script src="js/translation-engine.js?v=3.5"></script>
+  <script src="js/github-service.js?v=3.5"></script>
+  <script src="js/markdown-renderer.js?v=3.5"></script>
+  <script src="js/nav-tree.js?v=3.5"></script>
+  <script src="js/graph-view.js?v=3.5"></script>
+  <script src="js/cyber-effects.js?v=3.5"></script>
+  <script src="js/cyber-tools.js?v=3.5"></script>
+  <script src="js/app.js?v=3.5"></script>
 </body>
 </html>

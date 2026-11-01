@@ -184,7 +184,34 @@ html, body {
   overflow-x: hidden;
 }
 
-/* BACKGROUND CANVAS */
+/* ================= PERMANENT DEFAULT NEO-TOKYO NIGHT WALLPAPER ================= */
+#cyber-wallpaper-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  background: 
+    radial-gradient(ellipse at 85% 15%, rgba(255, 0, 127, 0.45) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(0, 243, 255, 0.4) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(121, 40, 202, 0.25) 0%, transparent 60%),
+    linear-gradient(180deg, #050814 0%, #0d1224 45%, #180a2b 100%);
+}
+
+#cyber-wallpaper-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
 #cyber-grid-canvas {
   position: fixed;
   top: 0;
@@ -193,6 +220,7 @@ html, body {
   height: 100vh;
   pointer-events: none;
   z-index: 0;
+  opacity: 0.55;
 }
 
 /* CRT SCANLINES OVERLAY */
@@ -345,3 +373,82 @@ html, body {
   background: var(--primary);
   box-shadow: 0 0 8px var(--primary);
 }
+
+/* ================= CYBER DIAGNOSTICS HUD BAR ================= */
+#hud-diagnostics-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--border-hud);
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+#hud-diagnostics-bar .diag-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#hud-diagnostics-bar .diag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66;
+}
+
+#cyber-fps-counter {
+  color: #00ff66;
+  font-weight: bold;
+}
+
+#cyber-clock-local {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+#cyber-clock-utc {
+  color: var(--text-muted);
+}
+
+/* SCI-FI CORNER BRACKETS [ + ] */
+.cyber-corner-box {
+  position: relative;
+}
+
+.cyber-corner-box::before,
+.cyber-corner-box::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cyber-corner-box::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
+}
+
+.cyber-corner-box::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--secondary);
+  border-right: 2px solid var(--secondary);
+}
+
+/* SCRAMBLE DECRYPT GLITCH */
+.scramble-decrypt {
+  font-family: var(--font-display);
+  letter-spacing: 1px;
+}
+

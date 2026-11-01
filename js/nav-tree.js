@@ -106,7 +106,7 @@ class NavTree {
 
     if (hasChildren) {
       return `
-        <li class="cyber-tree-node folder" data-path="${node.path}">
+        <li class="cyber-tree-node folder collapsed" data-path="${node.path}">
           <div class="node-row" onclick="window.navTree.toggleFolder(this, event)">
             <span class="folder-caret">
               <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">

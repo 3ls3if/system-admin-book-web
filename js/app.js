@@ -18,6 +18,7 @@ class CyberDocsApp {
     if (window.cyberI18n) window.cyberI18n.init();
     window.navTree.init();
     window.connectedGraph.init();
+    if (window.cyberTools) window.cyberTools.init();
     window.cyberMusic.updateUI();
 
     // 2. Autoplay background music automatically at lower initial volume (0.20)
@@ -78,6 +79,14 @@ class CyberDocsApp {
     let hash = window.location.hash.slice(1); // remove '#'
     if (hash.startsWith('/')) hash = hash.slice(1);
 
+    // Route: Cyber Tools Deck
+    if (hash.startsWith('tools')) {
+      this.showToolsView(hash);
+      return;
+    } else {
+      this.hideToolsView();
+    }
+
     // If anchor link on current page (e.g. #heading-id)
     if (hash && !hash.endsWith('.md') && !hash.includes('/')) {
       const el = document.getElementById(hash);
@@ -93,6 +102,41 @@ class CyberDocsApp {
     }
 
     await this.loadDocument(hash);
+  }
+
+  showToolsView(hash) {
+    const mainReader = document.getElementById('cyber-main');
+    const toolsView = document.getElementById('cyber-tools-view');
+    const btnTools = document.getElementById('btn-open-tools');
+    const tabTools = document.getElementById('tab-btn-tools');
+
+    if (mainReader) mainReader.style.display = 'none';
+    if (toolsView) {
+      toolsView.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (btnTools) btnTools.classList.add('active');
+    if (tabTools) tabTools.classList.add('active');
+
+    // Parse sub-tool: #/tools/dns, #/tools/storage, etc.
+    const parts = hash.split('/');
+    if (parts.length > 1 && parts[1] && window.cyberTools) {
+      window.cyberTools.switchTool(parts[1]);
+    }
+
+    document.title = 'CYBER TOOLS // WINDOWS SERVER SYSADMIN DECK';
+  }
+
+  hideToolsView() {
+    const mainReader = document.getElementById('cyber-main');
+    const toolsView = document.getElementById('cyber-tools-view');
+    const btnTools = document.getElementById('btn-open-tools');
+    const tabTools = document.getElementById('tab-btn-tools');
+
+    if (toolsView) toolsView.style.display = 'none';
+    if (mainReader) mainReader.style.display = 'block';
+    if (btnTools) btnTools.classList.remove('active');
+    if (tabTools) tabTools.classList.remove('active');
   }
 
   async loadDocument(path) {
@@ -133,7 +177,13 @@ class CyberDocsApp {
       const docTitle = (frontmatter.title) || (docMeta ? docMeta.title : path.split('/').pop().replace(/\.md$/, ''));
       const docCategory = (docMeta ? docMeta.category : 'System Guide');
 
-      if (titleEl) titleEl.textContent = docTitle;
+      if (titleEl) {
+        if (window.cyberScramble) {
+          window.cyberScramble.scramble(titleEl, docTitle, 400);
+        } else {
+          titleEl.textContent = docTitle;
+        }
+      }
       if (badgeEl) {
         badgeEl.textContent = `// ${docCategory.toUpperCase()}`;
         const catColor = window.CYBER_CONFIG.categoryColors[docCategory] || 'var(--primary)';
@@ -338,7 +388,21 @@ class CyberDocsApp {
       });
     }
 
-    // 6. Settings Modal
+    // 6. Cyber Tools Deck Button
+    const toolsBtn = document.getElementById('btn-open-tools');
+    if (toolsBtn) {
+      toolsBtn.addEventListener('click', () => {
+        const toolsView = document.getElementById('cyber-tools-view');
+        if (toolsView && toolsView.style.display !== 'none') {
+          window.location.hash = this.currentDocPath ? `#/${this.currentDocPath}` : '#/README.md';
+        } else {
+          window.location.hash = '#/tools';
+        }
+        if (window.cyberSFX) window.cyberSFX.playClick();
+      });
+    }
+
+    // 7. Settings Modal
     const settingsBtn = document.getElementById('btn-open-settings');
     const settingsModal = document.getElementById('cyber-settings-modal');
     const settingsCloseBtn = document.getElementById('btn-close-settings');
@@ -398,6 +462,16 @@ class CyberDocsApp {
         if (search) {
           search.focus();
           search.select();
+        }
+      }
+
+      // 'T' or 't' -> Toggle Cyber Tools Deck
+      if (e.key === 't' || e.key === 'T') {
+        const toolsView = document.getElementById('cyber-tools-view');
+        if (toolsView && toolsView.style.display !== 'none') {
+          window.location.hash = this.currentDocPath ? `#/${this.currentDocPath}` : '#/README.md';
+        } else {
+          window.location.hash = '#/tools';
         }
       }
 
