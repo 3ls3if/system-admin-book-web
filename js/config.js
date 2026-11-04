@@ -141,6 +141,60 @@ window.CYBER_CONFIG = {
       tag: 'CYBER WITCH'
     },
     {
+      id: 'major-crimes',
+      title: 'Major Crimes (Cyberpunk 2077)',
+      artist: 'HEALTH & Window Weather',
+      type: 'stream',
+      url: 'assets/audio/cyberpunk-major-crimes.mp3',
+      duration: '3:33',
+      tag: 'CYBERPUNK 2077'
+    },
+    {
+      id: 'stay-at-your-house',
+      title: 'I Really Want to Stay At Your House',
+      artist: 'Rosa Walton (Cyberpunk: Edgerunners)',
+      type: 'stream',
+      url: 'assets/audio/edgerunners-stay-at-your-house.mp3',
+      duration: '4:22',
+      tag: 'EDGERUNNERS'
+    },
+    {
+      id: 'cyberpunk-2077-theme',
+      title: 'Cyberpunk 2077 Theme',
+      artist: 'Marcin Przybyłowicz / P.T. Adamczyk',
+      type: 'stream',
+      url: 'assets/audio/cyberpunk-2077-theme.mp3',
+      duration: '5:49',
+      tag: 'CYBERPUNK 2077'
+    },
+    {
+      id: 'kim-and-jessie',
+      title: 'Kim & Jessie',
+      artist: 'M83',
+      type: 'stream',
+      url: 'assets/audio/m83-kim-and-jessie.mp3',
+      duration: '5:23',
+      tag: 'SYNTHPOP'
+    },
+    {
+      id: 'confess-to-you',
+      title: 'Confess To You (Extended Version)',
+      artist: 'LIM KIM',
+      type: 'stream',
+      url: 'assets/audio/lim-kim-confess-to-you.mp3',
+      duration: '8:25',
+      tag: 'K-INDIE / OST'
+    },
+    {
+      id: 'nevada-slowed',
+      title: 'Nevada (Slowed + Reverb)',
+      artist: 'Vicetone feat. Cozi Zuehlsdorff',
+      type: 'stream',
+      url: 'assets/audio/vicetone-nevada-slowed.mp3',
+      duration: '4:31',
+      tag: 'CHILLSTEP'
+    },
+    {
       id: 'nyc-streets',
       title: 'NYC Streets (Cyberpunk Ambient)',
       artist: 'Alexander Brandon (Deus Ex)',
